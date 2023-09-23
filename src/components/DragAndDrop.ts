@@ -170,7 +170,6 @@ function onDragMove(topTarget: HTMLElement, event: { pageY: number, clientY: num
     // it is outside of the container, exit
     const target = getDraggableElement(topTarget, props.container);
     if (!target) return;
-    // if ((target as any).domPath) console.log((target as any).domPath, target);
 
     const targetIdx = getChildElementIndex(target);
     const rect = target.getBoundingClientRect();
@@ -226,11 +225,14 @@ function onDragEnd() {
     rootElem().removeChild(props.element);
     props.element.classList.remove("dragging-item");
 
+    const after = props.nowIdx;
+    props.nowIdx = props.beforeIdx;
+
     // Move the element to its new position
     displayElementOrder(props.element);
 
     // Run the hook provided to be run upon finishing the drag
-    props.finishFunc(props.beforeIdx, props.nowIdx, props.container);
+    props.finishFunc(props.beforeIdx, after, props.container);
 
     props = null;
 

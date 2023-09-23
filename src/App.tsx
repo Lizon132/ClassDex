@@ -4,21 +4,12 @@ import './App.css';
 import { Course, Section } from './types';
 import { useState } from 'react';
 import SearchCourses from './components/SearchCourses';
+import SESSIONS from "./courses";
 
 
 type AppState = "current" | "browse";
 
-const allSections = [
-    {
-        name: "Comp 140"
-    },
-    {
-        name: "Math 354"
-    },
-    {
-        name: "Psyc 203"
-    },
-] as Section[];
+const allSections = SESSIONS as any as Section[];
 
 // Generate a list of all courses grouped by name
 const allCourses: Course[] = [];
@@ -43,7 +34,7 @@ export type CourseOrder = (Course | "Optional")[];
 
 const App = () => {
     const [appState, setAppState] = useState("current" as AppState);
-    const [mySections, setMySections] = useState(allSections as Section[]);
+    const [mySections, setMySections] = useState([] as Section[]);
     const [courseOrder, setCourseOrder] = useState(["Optional" as const, ...allCourses]);
 
     const sectionData = {

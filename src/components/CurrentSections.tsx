@@ -19,20 +19,48 @@ function CurrentSections(order: CourseOrder, setOrder: (o: CourseOrder) => void,
         for (let div of Array.from(document.getElementsByClassName("grabber-container"))) {
             const grabber = DragAndDrop.createGrabber((start, end) => {
                 moveArrayItem(order, start, end);
-                setOrder(order);
+                setOrder([...order]);
             });
             div.replaceChildren(grabber);
         }
     });
 
+    // Keep track of whether any courses are required
+    let anyRequiredCourses = false;
     return (
-        <div className="drag-container">
-            {order.map(course => course == "Optional" ? <div>Optional Courses:</div> : (
-                // Width is set manually because otherwise the first row gets stuck at 200px
-                <div hidden={!course.sections.find(s => mySections.sections.includes(s))}>
-                    { CatalogCourse(course, mySections, <span className="grabber-container"></span>) }
-                </div>
-            ))}
+        <div>
+            <div>Required Courses:</div>
+            <div className="drag-container">
+                {order.map(course => {
+                    if (course == "Optional") {
+                        const optionalDiv = <div>Optional Courses:</div>;
+                        if (anyRequiredCourses) {
+                            return optionalDiv;
+                        } else {
+                            return (
+                                <div>
+                                    <div style={{ color: "darkgray" }}>No required courses</div>
+                                    <br/>
+                                    {optionalDiv}
+                                </div>
+                            )
+                        }
+                    }
+
+                    // Check if the user has added any of the course sections
+                    const courseIsAdded = Boolean(course.sections.find(s => mySections.sections.includes(s)))
+                    if (courseIsAdded) {
+                        anyRequiredCourses = true;
+                    }
+
+                    // Width is set manually because otherwise the first row gets stuck at 200px
+                    return (
+                        <div style={{ display: courseIsAdded ? "block" : "none" }}>
+                            { CatalogCourse(course, mySections, <span className="grabber-container"></span>) }
+                        </div>
+                    )
+                })}
+            </div>
         </div>
     )
 
