@@ -16,7 +16,9 @@ const allCourses: Course[] = [];
 for (let section of allSections) {
     const existing = allCourses.find(c => c.name == section.name);
     if (existing) {
-        existing.sections.push(section);
+        if (existing.sections.every(s => JSON.stringify(s.times) !== JSON.stringify(section.times))) {
+            existing.sections.push(section);
+        }
     } else {
         allCourses.push({ name: section.name, title: section.title, sections: [section] });
     }
