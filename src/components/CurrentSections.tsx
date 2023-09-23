@@ -25,45 +25,49 @@ const CurrentSections = (order: CourseOrder, setOrder: (o: CourseOrder) => void,
         }
     });
 
-    // Keep track of whether any courses are required
+    // Keep track of whether any courses are required and optional
     let anyRequiredCourses = false;
+    let anyOptionalCourses = false;
+    let passedOptionalFlag = false;
+
+    const draggableElements = order.map(course => {
+        if (course == "Optional") {
+            passedOptionalFlag = true;
+            const optionalCoursesLabel = <div className="courses-heading">Optional Courses:</div>;
+            if (anyRequiredCourses) {
+                return optionalCoursesLabel;
+            } else {
+                return (
+                    <div>
+                        <div className="warning-label">No required courses</div>
+                        {optionalCoursesLabel}
+                    </div>
+                )
+            }
+        }
+
+        // Check if the user has added any of the course sections
+        const numSectionsAdded = course.sections.filter(s => mySections.sections.includes(s)).length;
+        if (numSectionsAdded > 0) {
+            if (passedOptionalFlag) anyOptionalCourses = true;
+            else anyRequiredCourses = true;
+        }
+
+        // Width is set manually because otherwise the first row gets stuck at 200px
+        return (
+            <div style={{ display: numSectionsAdded ? "block" : "none" }}>
+                { CourseLayout(course, mySections, <span className="grabber-container"></span>) }
+            </div>
+        );
+    });
+
     return (
         <div>
-            <div>Required Courses:</div>
-            <div className="drag-container">
-                {order.map(course => {
-                    if (course == "Optional") {
-                        const optionalCoursesLabel = <div>Optional Courses:</div>;
-                        if (anyRequiredCourses) {
-                            return optionalCoursesLabel;
-                        } else {
-                            return (
-                                <div>
-                                    <div style={{ color: "darkgray" }}>No required courses</div>
-                                    <br/>
-                                    {optionalCoursesLabel}
-                                </div>
-                            )
-                        }
-                    }
-
-                    // Check if the user has added any of the course sections
-                    const numSectionsAdded = course.sections.filter(s => mySections.sections.includes(s)).length;
-                    if (numSectionsAdded > 0) {
-                        anyRequiredCourses = true;
-                    }
-
-                    // Width is set manually because otherwise the first row gets stuck at 200px
-                    return (
-                        <div style={{ display: numSectionsAdded ? "block" : "none" }}>
-                            { CourseLayout(course, mySections, <span className="grabber-container"></span>) }
-                        </div>
-                    )
-                })}
-            </div>
+            <div className="courses-heading">Required Courses:</div>
+            <div className="drag-container"> {draggableElements} </div>
+            {<div hidden={anyOptionalCourses} className="warning-label">No optional courses</div>}
         </div>
-    )
-
+    );
 };
 
 export default CurrentSections;

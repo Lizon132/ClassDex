@@ -1,6 +1,7 @@
 const SearchBox = (setSearchTerm: (s: string) => void) => {
     return (
         <form
+            id="search-box-form"
             onSubmit={(e) => {
                 {/* console.log("Submitting!", e.currentTarget.value); */} 
                 e.preventDefault(); // <-- prevent the default form action

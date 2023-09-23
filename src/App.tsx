@@ -6,6 +6,7 @@ import { useMemo, useState } from 'react';
 import SearchCourses from './components/SearchCourses';
 import SESSIONS from "./courses";
 import SearchBox from './components/SearchBox';
+import PreferencesMenu from './components/PreferencesMenu';
 
 
 type AppState = "current" | "browse";
@@ -62,8 +63,14 @@ const App = () => {
 
     return TwoColumns(
         <div>
-            <div style={{display:"flex"}}>
-                <button hidden={appState === "current"} onClick={() => setAppState("current")}>←</button>
+            <div className="left-column-header">
+                {(appState === "current") ? null
+                     : <button onClick={() => {
+                         setAppState("current");
+                         // Clear the search box
+                         (document.getElementById("search-box-input") as HTMLInputElement).value = "";
+                     }}>←</button>
+                }
                 {
                     SearchBox((newSearch) => {
                         setSearch(newSearch);
@@ -74,6 +81,7 @@ const App = () => {
 
             {/* Display the current sections */}
             <div hidden={appState !== "current"}>
+                {/* {PreferencesMenu()} */} 
                 { CurrentSections(courseOrder, setCourseOrder, sectionData) }
             </div>
 
