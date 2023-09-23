@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
-.container{background-color: #e4e7f2;}
+.container{background-color: #e4e7f2; max-width: 1920px}
 /* Style for the button that triggers the dropdown */
         .dropdown-button {
             background-color: #fff;
@@ -19,7 +19,7 @@
             width: calc(100% - 40px); /* Calculate width minus 20px margin on each side */
         }
 
-        /* Style for the dropdown menu */
+            /* Style for the dropdown menu */
         .dropdown-content {
             display: none;
             position: absolute;
@@ -56,7 +56,7 @@
             border-radius: 20px;
             width: 100%;
             height: 80px;
-            margin: 20px;
+            margin: 20px 0;
             border-color: #000;
             border-width: 2px;
         }
@@ -95,6 +95,9 @@
 }
 .radio-group label {
     margin-left: 0px; /* Adjust the margin as needed */
+}
+.mt-5{
+    padding: 15px 0 0 0;
 }
 .mt-5 p{
     display: inline;
@@ -171,7 +174,20 @@ span::after {
 label {
 width: 100%;
 border-radius: 10px;
-background: white;
+background: white;}
+
+table{width: 100%;}
+td{
+    font-size: 1em;
+}
+.cal-01{
+    background: teal;
+    border-radius: 5px;
+    margin: 5px 0 0 0;
+}
+.mt-5 div p{
+margin: 2px;
+color: white;
 }
 
 </style>
@@ -488,10 +504,27 @@ background: white;
                     </ul>
 
                 </nav>
-                <div class="right_region">
-                    
-            </div>
 
+                <table class="table table-sm">
+                    <tr>
+                        <th>Sunday</th>
+                        <th>Monday</th>
+                        <th>Tuesday</th>
+                        <th>Wendsday</th>
+                        <th>Thursday</th>
+                        <th>Friday</th>
+                        <th>Saturday</th>
+                    </tr>
+                    <tr>
+                        <td><div class="cal-01"><p>Sample Class</p><br><p>10:00 - 11:45</p><br><p>Mon / Wed</p></div><div class="cal-01"><p>Sample Class</p><br><p>10:00 - 11:45</p><br><p>Mon / Wed</p></div><div class="cal-01"><p>Sample Class</p><br><p>10:00 - 11:45</p><br><p>Mon / Wed</p></div></td>
+                        <td><div class="cal-01"><p>Sample Class</p><br><p>10:00 - 11:45</p><br><p>Mon / Wed</p></div><div class="cal-01"><p>Sample Class</p><br><p>10:00 - 11:45</p><br><p>Mon / Wed</p></div><div class="cal-01"><p>Sample Class</p><br><p>10:00 - 11:45</p><br><p>Mon / Wed</p></div></td>
+                        <td><div class="cal-01"><p>Sample Class</p><br><p>10:00 - 11:45</p><br><p>Mon / Wed</p></div></td>
+                        <td><div class="cal-01"><p>Sample Class</p><br><p>10:00 - 11:45</p><br><p>Mon / Wed</p></div><div class="cal-01"><p>Sample Class</p><br><p>10:00 - 11:45</p><br><p>Mon / Wed</p></div></td>
+                        <td><div class="cal-01"><p>Sample Class</p><br><p>10:00 - 11:45</p><br><p>Mon / Wed</p></div><div class="cal-01"><p>Sample Class</p><br><p>10:00 - 11:45</p><br><p>Mon / Wed</p></div></td>
+                        <td><div class="cal-01"><p>Sample Class</p><br><p>10:00 - 11:45</p><br><p>Mon / Wed</p></div></td>
+                        <td><div class="cal-01"><p>Sample Class</p><br><p>10:00 - 11:45</p><br><p>Mon / Wed</p></div><div class="cal-01"><p>Sample Class</p><br><p>10:00 - 11:45</p><br><p>Mon / Wed</p></div><div class="cal-01"><p>Sample Class</p><br><p>10:00 - 11:45</p><br><p>Mon / Wed</p></div><div class="cal-01"><p>Sample Class</p><br><p>10:00 - 11:45</p><br><p>Mon / Wed</p></div></td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>
