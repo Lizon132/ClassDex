@@ -132,25 +132,26 @@ a.plus, a.plus:active{
 li a {text-decoration : none; color : #2d2f31;}
 nav {
   width : 100%;
-  background: #d9d9d9;
+  background: #fff;
   margin : 40px auto;
+  border-radius: 10px;
 }
 
 span {
   padding : 10px 0;
-  width: 100%;
-  background : #2d2f31;
-  color : white;
-  font-size : 1.2em;
-  font-variant : small-caps;
+  background : white;
+  color : black;
+  font-size : 1em;
   cursor : pointer;
   display: block;
+  margin: 0 10px;
+  border-radius: 10px;
 }
 
 span::after {
   float: right;
-  right: 10%;
   content: "+";
+  border-radius: 10px;
 }
 
 .slide {
@@ -162,11 +163,16 @@ span::after {
   transition: height .4s ease;
 }
 
-.slide li {padding : 30px;}
-
+.slide li {padding : 10px; list-style-type: none;}
 #touch {position: absolute; opacity: 0; height: 0px; width: 100%;}
 
-#touch:checked + .slide {height: 300px;}
+#touch:checked + .slide {height: 170px;}
+
+label {
+width: 100%;
+border-radius: 10px;
+background: white;
+}
 
 </style>
 <div class="container">
@@ -471,18 +477,20 @@ span::after {
 
                 <nav>
 
-                    <label for="touch"><span>titre</span></label>
+                    <label for="touch"><span>Teaching Quality, Content, Time, and Inter-class distance</span></label>
                     <input type="checkbox" id="touch">
 
                     <ul class="slide">
-                        <li><a href="#">Lorem Ipsum</a></li>
-                        <li><a href="#">Lorem Ipsum</a></li>
-                        <li><a href="#">Lorem Ipsum</a></li>
-                        <li><a href="#">Lorem Ipsum</a></li>
+                        <li><a href="#">Teaching Quality</a></li>
+                        <li><a href="#">Teaching Quality</a></li>
+                        <li><a href="#">Teaching Quality</a></li>
+                        <li><a href="#">Teaching Quality</a></li>
                     </ul>
 
                 </nav>
-
+                <div class="right_region">
+                    
+            </div>
 
             </div>
         </div>
