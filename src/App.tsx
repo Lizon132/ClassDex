@@ -81,7 +81,7 @@ const App = () => {
 
             {/* Display the current sections */}
             <div hidden={appState !== "current"}>
-                {/* {PreferencesMenu()} */} 
+                {PreferencesMenu()}
                 { CurrentSections(courseOrder, setCourseOrder, sectionData) }
             </div>
 

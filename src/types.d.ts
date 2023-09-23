@@ -14,3 +14,10 @@ export type Course = {
     name: string,
     sections: Section[],
 }
+
+export type Preferences = Partial<{
+    time: "early" | "late" | "middle",
+    freeFridays: boolean,
+    minCreditHours: number,
+    maxCreditHours: number,
+}>
