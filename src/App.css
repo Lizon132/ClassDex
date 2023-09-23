@@ -1,0 +1,63 @@
+/* The floating element being dragged around */
+.dragging-item {
+    cursor: grab;
+
+    pointer-events: none;
+
+    position: absolute;
+    width: 100%;
+    transform: translateY(-75%);
+}
+
+/* The item in place of the floating element in the list */
+.filler-item {
+    color: transparent;
+    background-color: lightgray;
+    cursor: grab;
+    width: 90%;
+}
+
+.grabber {
+    touch-action: none;
+    cursor: grab;
+    margin: auto 5px;
+}
+
+
+
+/* Column layout */
+.draggable-columns {
+    display: flex;
+    position: relative;
+}
+
+.left-column {
+    overflow: hidden;
+}
+
+.right-column {
+    margin-left: 5px;
+
+}
+
+.separator {
+    position: absolute;
+    left: 200px;
+    top: 0px;
+    width: 5px;
+    height: 100px;
+    background-color: #ccc;
+    cursor: col-resize;
+}
+
+
+
+.course {
+    background-color: white;
+    padding: 10px;
+    margin: 10px 0px;
+    border-radius: 8px;
+    border: thin solid lightgray;
+    width: 80%;
+}
+
