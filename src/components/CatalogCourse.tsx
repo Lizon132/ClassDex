@@ -6,20 +6,29 @@ import { Course, Section } from "../types";
 // Show an individual course in the course catalog
 export default function CatalogCourse(course: Course, mySections: CurrentSectionData, grabber?: ReactNode) {
     const [folded, setFolded] = useState(true);
+    const numSectionsAdded = course.sections.filter(s => mySections.sections.includes(s)).length;
     return (
         <div className="course">
             { grabber }
             <span>{ course.name } </span>
-            <button onClick={() => setFolded(!folded)}>{ folded ? ">" : "v" }</button>
+
+            {/* Display how many sections are added */}
+            { numSectionsAdded > 0 &&
+              <span style={{ color: numSectionsAdded === course.sections.length ? "green" : "orange" }}>
+                  { numSectionsAdded }/{ course.sections.length }
+              </span>
+            }
 
             {/* If all sections are already added, have a button to remove all. Otherwise, have a button to add all. */}
             {
-                course.sections.every(s => mySections.sections.includes(s)) ? (
-                    <button onClick={() => course.sections.forEach(s => mySections.remove(s))}>-</button>
+                (numSectionsAdded === course.sections.length) ? (
+                    <button onClick={() => mySections.remove(...course.sections)}>-</button>
                 ) : (
-                    <button onClick={() => course.sections.forEach(s => mySections.add(s))}>+</button>
+                    <button onClick={() => mySections.add(...course.sections)}>+</button>
                 )
             }
+
+            <button onClick={() => setFolded(!folded)}>{ folded ? ">" : "v" }</button>
 
             {/* Everything below will be hidden when the course is folded */}
             <div hidden={folded}>

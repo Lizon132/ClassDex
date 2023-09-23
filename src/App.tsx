@@ -2,7 +2,7 @@ import CurrentSections from './components/CurrentSections';
 import TwoColumns from './components/TwoColumns';
 import './App.css';
 import { Course, Section } from './types';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import SearchCourses from './components/SearchCourses';
 import SESSIONS from "./courses";
 
@@ -14,6 +14,8 @@ const allSections = SESSIONS as any as Section[];
 // Generate a list of all courses grouped by name
 const allCourses: Course[] = [];
 for (let section of allSections) {
+    if (section.times.length === 0) continue;
+
     const existing = allCourses.find(c => c.name == section.name);
     if (existing) {
         if (existing.sections.every(s => JSON.stringify(s.times) !== JSON.stringify(section.times))) {
@@ -28,11 +30,12 @@ for (let section of allSections) {
 // Props passed down to children in order to access the currently added sections
 export type CurrentSectionData = {
     sections: Section[],
-    add: (s: Section) => void,
-    remove: (s: Section) => void,
+    add: (...s: Section[]) => void,
+    remove: (...s: Section[]) => void,
 }
 
 export type CourseOrder = (Course | "Optional")[];
+
 
 const App = () => {
     const [appState, setAppState] = useState("current" as AppState);
@@ -41,23 +44,26 @@ const App = () => {
 
     const sectionData = {
         sections: mySections,
-        add: (newSection: Section) => {
-            if (!mySections.includes(newSection)) {
-                setMySections([...mySections, newSection])
+        add: (...newSections: Section[]) => {
+            for (let newSection of newSections) {
+                if (!mySections.includes(newSection)) {
+                    mySections.push(newSection);
+                }
             }
+            setMySections([...mySections]);
         },
-        remove: (removeSection: Section) => {
-            setMySections(mySections.filter(s => removeSection !== s));
+        remove: (...removeSections: Section[]) => {
+            setMySections(mySections.filter(s => !removeSections.includes(s)));
         },
     }
 
     return TwoColumns(
         <div>
-            <div hidden={appState != "current"}>
+            <div hidden={appState !== "current"}>
                 <button onClick={() => setAppState("browse")}>+</button>
                 { CurrentSections(courseOrder, setCourseOrder, sectionData) }
             </div>
-            <div hidden={appState != "browse"}>
+            <div hidden={appState !== "browse"}>
                 <button onClick={() => setAppState("current")}>Back</button>
                 <div>{ SearchCourses(allCourses, sectionData) }</div>
             </div>

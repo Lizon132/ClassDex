@@ -1,3 +1,9 @@
+body {
+    overflow: hidden;
+    height: 100;
+}
+
+
 /* The floating element being dragged around */
 .dragging-item {
     cursor: grab;
@@ -29,25 +35,30 @@
 .draggable-columns {
     display: flex;
     position: relative;
+    height: 98vh;
 }
 
 .left-column {
-    overflow: hidden;
+    overflow: scroll;
+    height: 100%;
 }
 
 .right-column {
+    overflow: scroll;
     margin-left: 5px;
 
 }
 
 .separator {
     position: absolute;
-    left: 200px;
+    left: 600px;
     top: 0px;
-    width: 5px;
-    height: 100px;
-    background-color: #ccc;
+    width: 6px;
+    height: 100%;
+    border-right: solid 1px #ccc;
     cursor: col-resize;
+
+    transform: translateX(+200%);
 }
 
 
@@ -59,5 +70,6 @@
     border-radius: 8px;
     border: thin solid lightgray;
     width: 80%;
+    overflow-x: scroll;
 }
 

@@ -48,14 +48,14 @@ function CurrentSections(order: CourseOrder, setOrder: (o: CourseOrder) => void,
                     }
 
                     // Check if the user has added any of the course sections
-                    const courseIsAdded = Boolean(course.sections.find(s => mySections.sections.includes(s)))
-                    if (courseIsAdded) {
+                    const numSectionsAdded = course.sections.filter(s => mySections.sections.includes(s)).length;
+                    if (numSectionsAdded > 0) {
                         anyRequiredCourses = true;
                     }
 
                     // Width is set manually because otherwise the first row gets stuck at 200px
                     return (
-                        <div style={{ display: courseIsAdded ? "block" : "none" }}>
+                        <div style={{ display: numSectionsAdded ? "block" : "none" }}>
                             { CatalogCourse(course, mySections, <span className="grabber-container"></span>) }
                         </div>
                     )

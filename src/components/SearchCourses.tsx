@@ -3,9 +3,10 @@ import { CurrentSectionData } from "../App";
 import { Course, Section } from "../types";
 import CatalogCourse from "./CatalogCourse";
 
-function SearchCourses(allCourses: Course[], mySections: CurrentSectionData) {
+function SearchClasses(allCourses: Course[], mySections: CurrentSectionData) {
     const [search, setSearch] = useState("");
 
+    console.log("Searching")
     return (
         <div>
             {allCourses.map((course) => CatalogCourse(course, mySections))}
@@ -14,4 +15,4 @@ function SearchCourses(allCourses: Course[], mySections: CurrentSectionData) {
 
 }
 
-export default SearchCourses;
+export default SearchClasses;
