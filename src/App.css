@@ -4,6 +4,19 @@ body {
 }
 
 
+/* Put scrollbar on left */
+.left-column {
+  height: 100px;
+  overflow: auto;
+  direction: rtl;
+  padding-left: 10px;
+}
+
+.left-column>div {
+  direction: ltr;
+}
+
+
 /* The floating element being dragged around */
 .dragging-item {
     cursor: grab;
@@ -62,6 +75,14 @@ body {
 }
 
 
+#search-box-input {
+    margin-bottom: 10px;
+    padding: 5px;
+    border-radius: 10px;
+    border: thin solid darkgray;
+}
+
+
 
 .course {
     background-color: white;
@@ -71,5 +92,55 @@ body {
     border: thin solid lightgray;
     width: 80%;
     overflow-x: scroll;
+}
+
+.course-name {
+    margin: 0px 8px;
+}
+
+.course-title, .course-number-added {
+    font-family: monospace;
+    font-size: medium;
+    color: slategray;
+    white-space: nowrap;
+}
+
+.course-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.course-header-left, .course-header-right {
+    display: flex;
+    align-items: center;
+    margin: 0px 3px;
+}
+
+.course-body {
+    margin-top: 10px;
+}
+
+.course-section {
+    padding: 10px;
+    border: thin solid lightgray;
+    border-radius: 8px;
+    margin: 5px 0px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+button {
+    border-radius: 50px;
+    padding: 3px;
+    background-color: transparent;
+    border: thin solid darkgray;
+    margin: 0px 5px;
+    cursor: pointer;
+
+    min-width: 25px;
+    min-height: 25px;
 }
 

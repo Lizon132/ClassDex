@@ -5,6 +5,7 @@ import { Course, Section } from './types';
 import { useMemo, useState } from 'react';
 import SearchCourses from './components/SearchCourses';
 import SESSIONS from "./courses";
+import SearchBox from './components/SearchBox';
 
 
 type AppState = "current" | "browse";
@@ -41,6 +42,8 @@ const App = () => {
     const [appState, setAppState] = useState("current" as AppState);
     const [mySections, setMySections] = useState([] as Section[]);
     const [courseOrder, setCourseOrder] = useState(["Optional" as const, ...allCourses]);
+    const [search, setSearch] = useState("");
+
 
     const sectionData = {
         sections: mySections,
@@ -59,13 +62,24 @@ const App = () => {
 
     return TwoColumns(
         <div>
+            <div style={{display:"flex"}}>
+                <button hidden={appState === "current"} onClick={() => setAppState("current")}>←</button>
+                {
+                    SearchBox((newSearch) => {
+                        setSearch(newSearch);
+                        if (appState === "current") setAppState("browse");
+                    })
+                }
+            </div>
+
+            {/* Display the current sections */}
             <div hidden={appState !== "current"}>
-                <button onClick={() => setAppState("browse")}>+</button>
                 { CurrentSections(courseOrder, setCourseOrder, sectionData) }
             </div>
+
+            {/* Display searched for sections */}
             <div hidden={appState !== "browse"}>
-                <button onClick={() => setAppState("current")}>Back</button>
-                <div>{ SearchCourses(allCourses, sectionData) }</div>
+                <div>{ SearchCourses(search, allCourses, sectionData) }</div>
             </div>
         </div>,
         "Right",

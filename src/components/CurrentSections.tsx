@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { CourseOrder, CurrentSectionData } from '../App';
-import CatalogCourse from './CatalogCourse';
+import CourseLayout from './CourseLayout';
 import * as DragAndDrop from "./DragAndDrop";
 
 function moveArrayItem<T>(array: T[], idx: number, to: number) {
@@ -14,7 +14,7 @@ function moveArrayItem<T>(array: T[], idx: number, to: number) {
 }
 
 
-function CurrentSections(order: CourseOrder, setOrder: (o: CourseOrder) => void, mySections: CurrentSectionData) {
+const CurrentSections = (order: CourseOrder, setOrder: (o: CourseOrder) => void, mySections: CurrentSectionData) => {
     useEffect(() => {
         for (let div of Array.from(document.getElementsByClassName("grabber-container"))) {
             const grabber = DragAndDrop.createGrabber((start, end) => {
@@ -33,15 +33,15 @@ function CurrentSections(order: CourseOrder, setOrder: (o: CourseOrder) => void,
             <div className="drag-container">
                 {order.map(course => {
                     if (course == "Optional") {
-                        const optionalDiv = <div>Optional Courses:</div>;
+                        const optionalCoursesLabel = <div>Optional Courses:</div>;
                         if (anyRequiredCourses) {
-                            return optionalDiv;
+                            return optionalCoursesLabel;
                         } else {
                             return (
                                 <div>
                                     <div style={{ color: "darkgray" }}>No required courses</div>
                                     <br/>
-                                    {optionalDiv}
+                                    {optionalCoursesLabel}
                                 </div>
                             )
                         }
@@ -56,7 +56,7 @@ function CurrentSections(order: CourseOrder, setOrder: (o: CourseOrder) => void,
                     // Width is set manually because otherwise the first row gets stuck at 200px
                     return (
                         <div style={{ display: numSectionsAdded ? "block" : "none" }}>
-                            { CatalogCourse(course, mySections, <span className="grabber-container"></span>) }
+                            { CourseLayout(course, mySections, <span className="grabber-container"></span>) }
                         </div>
                     )
                 })}
@@ -64,7 +64,7 @@ function CurrentSections(order: CourseOrder, setOrder: (o: CourseOrder) => void,
         </div>
     )
 
-}
-
+};
 
 export default CurrentSections;
+

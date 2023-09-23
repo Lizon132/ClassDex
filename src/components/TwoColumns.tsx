@@ -1,8 +1,8 @@
 import { ReactNode, useState } from "react";
 import Draggable from "react-draggable";
 
-export default function TwoColumns(left: ReactNode, right: ReactNode) {
-    const [width, setWidth] = useState(600); // Initial width in percentage
+const TwoColumns = (left: ReactNode, right: ReactNode) => {
+    const defaultWidth = 600;
 
     const handleDrag = (e: DragEvent) => {
         // Calculate the new left column width based on the drag delta
@@ -15,13 +15,14 @@ export default function TwoColumns(left: ReactNode, right: ReactNode) {
     return (
         <div>
             <div className="draggable-columns">
-                <div className="left-column" style={{ width: `${width}px` }}>{left}</div>
+                <div className="left-column" style={{ width: `${defaultWidth}px` }}>{left}</div>
                 <div className="right-column">{right}</div>
             </div>
-            <Draggable axis="x" onDrag={handleDrag} bounds={{ left: 200 - width }}>
+            <Draggable axis="x" onDrag={handleDrag} bounds={{ left: 200 - defaultWidth }}>
                 <div className="separator" />
             </Draggable>
         </div>
     );
-}
+};
 
+export default TwoColumns;
