@@ -1,5 +1,5 @@
 # ClassDex
-By Adam, Chris, Michel, and Valerie
+By Adam, Chris, Michelg, and Valerie
 
 # DESCRIPTION
 ClassDex is a automation applicaiton to make picking classes easier and more efficient. In this applicaiton students pick classes based upon weighted criteria picked by the user. 
