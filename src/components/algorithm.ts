@@ -66,10 +66,29 @@ export async function callAlgorithmAndUpdate(
         courseId: s.course.id,
     }));
 
+    if (prefs.time === "late") {
+        for (let sec of withMetadata) {
+            sec.weight += sec.session.timeRanges[0].startHour / 3
+        }
+    }
+    if (prefs.time === "early") {
+        for (let sec of withMetadata) {
+            sec.weight += (24 - sec.session.timeRanges[0].startHour) / 3
+        }
+    }
+
+    for (let i = 0; i < withMetadata.length; i++) {
+        if (i <= numRequired) {
+            withMetadata[i].weight += 20;
+        } else {
+            withMetadata[i].weight += (withMetadata.length - i - numRequired)*0.5;
+        }
+    }
+
     // const scheduleWithMetadata = withMetadata;
     const scheduleWithMetadata = await computeOptimalSessionScheduling(
         withMetadata,
-        prefs.minCreditHours ?? 12,
+        prefs.minCreditHours ?? 1,
         prefs.maxCreditHours ?? 18,
     );
 
