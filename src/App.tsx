@@ -79,24 +79,27 @@ const App = () => {
     const [sectionResults, setSectionResults] = useState([] as Section[]);
 
 
-    const update = () => {
+    const update = (sections: Section[] = mySections) => {
         setTimeout(
-            () => callAlgorithmAndUpdate(
-                orderSections(mySections, courseOrder),
-                requiredSectionCount(courseOrder),
-                getPreferences(),
-                setSectionResults,
-            ),
+            () => {
+                callAlgorithmAndUpdate(
+                    orderSections(sections, courseOrder),
+                    requiredSectionCount(courseOrder),
+                    getPreferences(),
+                    setSectionResults,
+                );
+            },
             100,
         );
     }
 
-    const setMySectionsAndUpdate: ((s: Section[]) => void) = (sections) => {
+    const setMySectionsAndUpdate = (sections: Section[]) => {
+        console.log("Setting", sections)
         setMySections(sections);
-        update();
+        update(sections);
     }
 
-    const setCourseOrderAndUpdate: ((s: CourseOrder) => void) = (order) => {
+    const setCourseOrderAndUpdate = (order: CourseOrder) => {
         setCourseOrder(order);
         update();
     }
