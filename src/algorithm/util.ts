@@ -31,14 +31,14 @@ function overlapBetweenSessionTimes(lhs: CourseSection, rhs: CourseSection): boo
     return false;
 }
 
-async function computeOptimalSessionScheduling(for_sessions) {
+async function computeOptimalSessionScheduling(for_sessions, minimum_credits, maximum_credits) {
     try {
         const response = await fetch('http://localhost:3000/computeOptimalScheduling', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(for_sessions),
+            body: JSON.stringify({ for_sessions, minimum_credits, maximum_credits }),
         });
 
         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
