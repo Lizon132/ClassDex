@@ -16,6 +16,18 @@ button {
     min-height: 25px;
 }
 
+.course-remove-all-button, .remove-button {
+    font-weight: bold;
+    color: #a00;
+}
+
+.course-add-all-button, .add-button {
+    font-weight: bold;
+    color: #070;
+}
+
+
+
 
 /* Put scrollbar on left */
 .left-column {
@@ -175,6 +187,71 @@ button {
     justify-content: space-between;
     align-items: center;
 }
+
+.course-section-added {
+    background-color: #eef4ff;
+}
+
+
+.course-info-header {
+    margin-top: 20px;
+    font-size: 1.0em;
+    margin-right: 10px;
+    /* font-weight: 300; */
+}
+
+.course-info-body {
+    font-size: 0.85em;
+    font-weight: 350;
+}
+
+.course-info-table {
+    width: 100%;
+    margin-top: 14px;
+}
+
+td {
+    padding-bottom: 12px;
+}
+
+.course-info-icon {
+    width: 17px;
+    height: 17px;
+    margin-right: 7px;
+    translate: 0px 3px;
+}
+
+.weekday {
+    border: 2px solid #246;
+    border-radius: 6px;
+    padding: 3px;
+
+    width: 20px;
+    height: 20px;
+
+    font-weight: bold;
+    text-align: center;
+}
+
+.weekday-active {
+    background-color: #246;
+    color: white;
+}
+
+
+.course-section-time {
+    display: flex;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.time-range {
+    font-size: 1.0em;
+    /* font-weight: bold; */
+    margin-left: 15px;
+    margin-top: 5px;
+}
+
 
 
 /* Formatting preferences */
@@ -480,3 +557,4 @@ button {
     z-index: -1;
     left: -10px
 }
+

@@ -32,7 +32,7 @@ const CurrentSections = (order: CourseOrder, setOrder: (o: CourseOrder) => void,
     let passedOptionalFlag = false;
 
     const draggableElements = order.map(course => {
-        if (course == "Optional") {
+        if (course === "Optional") {
             passedOptionalFlag = true;
             const optionalCoursesLabel = <div className="courses-heading">Optional Courses:</div>;
             if (anyRequiredCourses) {

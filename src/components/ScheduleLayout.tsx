@@ -1,13 +1,5 @@
-import React from "react";
 import { Section } from "../types";
 import { timeString } from "./CourseSectionLayout";
-
-
-const events = [
-    { name: 'Event 1', startHour: 9, startMin: 0, endHour: 10, endMin: 30, dayOfWeek: 1 },
-    { name: 'Event 2', startHour: 13, startMin: 0, endHour: 14, endMin: 30, dayOfWeek: 3 },
-    // Add more events as needed
-];
 
 
 function percentHeight(mins: number, totalMins: number): string {
@@ -82,7 +74,7 @@ const ScheduleLayout = (sections: Section[]) => {
                              id={ dayIdx===0 ? `calendar-time-${rowIdx}` : null }
                              style={{ height: percentHeight(end-start, totalMinutes) }}
                         >
-                            { <div>{ text.flatMap((line, i) => (i==0) ? line : [<br/>, line]) }</div> }
+                            { <div>{ text.flatMap((line, i) => (i===0) ? line : [<br/>, line]) }</div> }
                         </div>
                     ];
                 });

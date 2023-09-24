@@ -1,14 +1,15 @@
 import { ReactNode, useState } from "react";
 import { CurrentSectionData } from "../App";
-import { Course, Section } from "../types";
+import { Course } from "../types";
 import CourseBodyLayout from "./CourseBodyLayout";
-import CourseSectionLayout from "./CourseSectionLayout";
 
 
 // Show an individual course in the course catalog
 const CourseLayout = (course: Course, mySections: CurrentSectionData, grabber?: ReactNode) => {
     const [folded, setFolded] = useState(true);
+
     const numSectionsAdded = course.fullSections.filter(s => mySections.sections.includes(s)).length;
+
     return (
         <div className="course">
             <div className="course-header">
@@ -33,7 +34,7 @@ const CourseLayout = (course: Course, mySections: CurrentSectionData, grabber?: 
                         <button className="course-remove-all-button"
                                 onClick={() => mySections.remove(...course.fullSections)}
                                 >
-                            -
+                            —
                         </button>
                     ) : (
                         <button className="course-add-all-button"
@@ -46,15 +47,14 @@ const CourseLayout = (course: Course, mySections: CurrentSectionData, grabber?: 
                     <button className="course-fold-button"
                             onClick={() => setFolded(!folded)}
                             >
-                        { folded ? ">" : "v" }
+                        { folded ? "◥" : "◢" }
                     </button>
                 </div>
             </div>
 
             {/* Everything below will be hidden when the course is folded */}
-            <div className="course-body" style={{ "max-height": (folded ? "0px" : "700px") } as any}>
-                {/* For each section, have a button to individually add/remove that section. */}
-                {course.fullSections.map(section => CourseSectionLayout(section, mySections))}
+            <div className="course-body" style={{ "max-height": (folded ? "0px" : "1500px") } as any}>
+                { CourseBodyLayout(folded, course, mySections) }
             </div>
         </div>
     )

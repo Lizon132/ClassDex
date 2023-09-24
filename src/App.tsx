@@ -9,6 +9,12 @@ import PreferencesMenu from './components/PreferencesMenu';
 import ScheduleLayout from './components/ScheduleLayout';
 
 import './App.css';
+import "./index";
+
+export const clockImage = require("./icons/clock.jpg") as any;
+export const personImage = require("./icons/person.jpg") as any;
+export const worldImage = require("./icons/world.jpg") as any;
+export const aImage = require("./icons/a.jpg") as any;
 
 
 type AppState = "current" | "browse";
