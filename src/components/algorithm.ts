@@ -35,7 +35,7 @@ export async function computeOptimalSessionScheduling(
     for_sessions: SessionWithMetadata[], minimum_credits: number, maximum_credits: number,
 ): Promise<SessionWithMetadata[]> {
     try {
-        const response = await fetch('http://localhost:3000/computeOptimalScheduling', {
+        const response = await fetch('http://localhost:3001/computeOptimalScheduling', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
