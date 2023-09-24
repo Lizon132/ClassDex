@@ -34,4 +34,3 @@ In this view, the user can add and remove courses, reorder courses based on prio
 
 The right side of the UI is a calendar view which displays your entire schedule on a single page, dynamically changing size if you have any unusually early or late classes.
 
-

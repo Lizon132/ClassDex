@@ -1,0 +1,531 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+.container{background-color: #e4e7f2; max-width: 1920px}
+/* Style for the button that triggers the dropdown */
+        .dropdown-button {
+            background-color: #fff;
+            color: #000;
+            padding: 10px 0; /* Adjust the top and bottom padding as needed */
+            margin: 0 20px; /* Adds 20px margin on both sides */
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            width: calc(100% - 40px); /* Calculate width minus 20px margin on each side */
+        }
+
+            /* Style for the dropdown menu */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            width: 100%; /* Dropdown width matches the container */
+            margin: 0 20px;
+        }
+
+        /* Style for dropdown menu items */
+        .dropdown-item {
+            padding: 10px;
+            text-decoration: none;
+            display: block;
+            color: black;
+            margin: 0 20px;
+        }
+
+        /* Hover effect for dropdown items */
+        .dropdown-item:hover {
+            background-color: #f2f2f2;
+        }
+
+        /* Show the dropdown when hovering over the container */
+        .container:hover .dropdown-content {
+            display: block;
+        }
+        /* Add your custom styles here */
+        .radio-group {
+            display: flex;
+            align-items: center;
+            background-color: #fff;
+            border-radius: 20px;
+            width: 100%;
+            height: 80px;
+            margin: 20px 0;
+            border-color: #000;
+            border-width: 2px;
+        }
+
+        .radio-group .form-check {
+            margin-right: 15px;
+        }
+
+        /* Custom CSS for buttons */
+        .btn-container {
+
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .btn-container .btn {
+
+            margin: 0 10px; /* Add 10px margin on both sides */
+        }
+        .radio-group{width: 100%; dsiplayL flex;}
+        .radio-group label {
+    display: inline-block;
+    margin-right: 0px; /* Adjust the margin as needed */
+}
+.left-content {
+    flex: 60%;
+}
+.right-content {
+    flex: 40%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.radio-group img{
+    transform: scale(0.7);
+}
+.radio-group label {
+    margin-left: 0px; /* Adjust the margin as needed */
+}
+.mt-5{
+    padding: 15px 0 0 0;
+}
+.mt-5 p{
+    display: inline;
+    margin-right: 20px; /* Adjust the margin as needed */
+    color: #9da3c6;
+    margin-left: 10px;
+}
+
+.radio-group h4{
+    margin-left: 10px;
+}
+.topper{
+    display: flex;
+    width: 100%;
+}
+a.red_bu, a.red_bu:active{
+    padding: 10px 10px;
+    background-color: #ed2828;
+    margin: 0 10px;
+    border-radius: 10px;
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+}
+a.plus, a.plus:active{
+    padding: 10px 15px;
+    background-color: white;
+    margin: 0 10px;
+    border-radius: 10px;
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+}
+<!--dropdownmenu-->
+li a {text-decoration : none; color : #2d2f31;}
+nav {
+  width : 100%;
+  background: #fff;
+  margin : 40px auto;
+  border-radius: 10px;
+}
+
+span {
+  padding : 10px 0;
+  background : white;
+  color : black;
+  font-size : 1em;
+  cursor : pointer;
+  display: block;
+  margin: 0 10px;
+  border-radius: 10px;
+}
+
+span::after {
+  float: right;
+  content: "+";
+  border-radius: 10px;
+}
+
+.slide {
+  clear:both;
+  width:100%;
+  height:0px;
+  overflow: hidden;
+  text-align: center;
+  transition: height .4s ease;
+}
+
+.slide li {padding : 10px; list-style-type: none;}
+#touch {position: absolute; opacity: 0; height: 0px; width: 100%;}
+
+#touch:checked + .slide {height: 170px;}
+
+label {
+width: 100%;
+border-radius: 10px;
+background: white;}
+
+table{width: 100%;}
+td{
+    font-size: 1em;
+}
+.cal-01{
+    background: teal;
+    border-radius: 5px;
+    margin: 5px 0 0 0;
+}
+.mt-5 div p{
+margin: 2px;
+color: white;
+}
+
+</style>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="container mt-5">
+                <div class="topper">
+                <div class ="left-content">
+                    <h2>Add/Drop</h2>
+                    <p>Panic Time</p>
+                </div>
+                <div class="right-content">
+                    <a href="#"> <i class="fa fa-home w3-xxxlarge"></i></a>
+                    <a href="#" class="red_bu">Add/Drop</a>
+                    <a href="#" class="plus">+</a>
+                </div>
+            </div>
+                <form>
+                    <div class="radio-group">
+                        <div class="left-content">
+                        <h4>Computational Thinking</h4>
+                            <p>3 Credit Hours &#x2022; COMP140 &#x2022; Lecture</p>
+                        </div>
+                        <div class="right-content">
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="item" hidden><img src="no.jpg">
+                        </label>
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="item" hidden><img src="maybe.jpg">
+                        </label>
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="item" hidden><img src="yes.jpg">
+                        </label>
+                        </div>
+                    </div>
+
+                    <div class="radio-group">
+                    <div class="left-content">
+                        <h4>Computational Thinking</h4>
+                        <p>3 Credit Hours &#x2022; COMP140 &#x2022; Lecture</p>
+                    </div>
+                    <div class="right-content">
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="item" hidden><img src="no.jpg">
+                        </label>
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="item" hidden><img src="maybe.jpg">
+                        </label>
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="item" hidden><img src="yes.jpg">
+                        </label>
+                    </div>
+                </div>
+
+                    <div class="radio-group">
+                        <div class="left-content">
+                            <h4>Computational Thinking</h4>
+                            <p>3 Credit Hours &#x2022; COMP140 &#x2022; Lecture</p>
+                        </div>
+                        <div class="right-content">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="item" hidden><img src="no.jpg">
+                            </label>
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="item" hidden><img src="maybe.jpg">
+                            </label>
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="item" hidden><img src="yes.jpg">
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="radio-group">
+                        <div class="left-content">
+                            <h4>Computational Thinking</h4>
+                            <p>3 Credit Hours &#x2022; COMP140 &#x2022; Lecture</p>
+                        </div>
+                        <div class="right-content">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="item" hidden><img src="no.jpg">
+                            </label>
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="item" hidden><img src="maybe.jpg">
+                            </label>
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="item" hidden><img src="yes.jpg">
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="radio-group">
+                        <div class="left-content">
+                            <h4>Computational Thinking</h4>
+                            <p>3 Credit Hours &#x2022; COMP140 &#x2022; Lecture</p>
+                        </div>
+                        <div class="right-content">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="item" hidden><img src="no.jpg">
+                            </label>
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="item" hidden><img src="maybe.jpg">
+                            </label>
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="item" hidden><img src="yes.jpg">
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="radio-group">
+                        <div class="left-content">
+                            <h4>Computational Thinking</h4>
+                            <p>3 Credit Hours &#x2022; COMP140 &#x2022; Lecture</p>
+                        </div>
+                        <div class="right-content">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="item" hidden><img src="no.jpg">
+                            </label>
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="item" hidden><img src="maybe.jpg">
+                            </label>
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="item" hidden><img src="yes.jpg">
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="radio-group">
+                        <div class="left-content">
+                            <h4>Computational Thinking</h4>
+                            <p>3 Credit Hours &#x2022; COMP140 &#x2022; Lecture</p>
+                        </div>
+                        <div class="right-content">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="item" hidden><img src="no.jpg">
+                            </label>
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="item" hidden><img src="maybe.jpg">
+                            </label>
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="item" hidden><img src="yes.jpg">
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="radio-group">
+                        <div class="left-content">
+                            <h4>Computational Thinking</h4>
+                            <p>3 Credit Hours &#x2022; COMP140 &#x2022; Lecture</p>
+                        </div>
+                        <div class="right-content">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="item" hidden><img src="no.jpg">
+                            </label>
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="item" hidden><img src="maybe.jpg">
+                            </label>
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="item" hidden><img src="yes.jpg">
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="radio-group">
+                        <div class="left-content">
+                            <h4>Computational Thinking</h4>
+                            <p>3 Credit Hours &#x2022; COMP140 &#x2022; Lecture</p>
+                        </div>
+                        <div class="right-content">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="item" hidden><img src="no.jpg">
+                            </label>
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="item" hidden><img src="maybe.jpg">
+                            </label>
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="item" hidden><img src="yes.jpg">
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="radio-group">
+                        <div class="left-content">
+                            <h4>Computational Thinking</h4>
+                            <p>3 Credit Hours &#x2022; COMP140 &#x2022; Lecture</p>
+                        </div>
+                        <div class="right-content">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="item" hidden><img src="no.jpg">
+                            </label>
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="item" hidden><img src="maybe.jpg">
+                            </label>
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="item" hidden><img src="yes.jpg">
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="radio-group">
+                        <div class="left-content">
+                            <h4>Computational Thinking</h4>
+                            <p>3 Credit Hours &#x2022; COMP140 &#x2022; Lecture</p>
+                        </div>
+                        <div class="right-content">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="item" hidden><img src="no.jpg">
+                            </label>
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="item" hidden><img src="maybe.jpg">
+                            </label>
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="item" hidden><img src="yes.jpg">
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="radio-group">
+                        <div class="left-content">
+                            <h4>Computational Thinking</h4>
+                            <p>3 Credit Hours &#x2022; COMP140 &#x2022; Lecture</p>
+                        </div>
+                        <div class="right-content">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="item" hidden><img src="no.jpg">
+                            </label>
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="item" hidden><img src="maybe.jpg">
+                            </label>
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="item" hidden><img src="yes.jpg">
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="radio-group">
+                        <div class="left-content">
+                            <h4>Computational Thinking</h4>
+                            <p>3 Credit Hours &#x2022; COMP140 &#x2022; Lecture</p>
+                        </div>
+                        <div class="right-content">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="item" hidden><img src="no.jpg">
+                            </label>
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="item" hidden><img src="maybe.jpg">
+                            </label>
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="item" hidden><img src="yes.jpg">
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="radio-group">
+                        <div class="left-content">
+                            <h4>Computational Thinking</h4>
+                            <p>3 Credit Hours &#x2022; COMP140 &#x2022; Lecture</p>
+                        </div>
+                        <div class="right-content">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="item" hidden><img src="no.jpg">
+                            </label>
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="item" hidden><img src="maybe.jpg">
+                            </label>
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="item" hidden><img src="yes.jpg">
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="radio-group">
+                        <div class="left-content">
+                            <h4>Computational Thinking</h4>
+                            <p>3 Credit Hours &#x2022; COMP140 &#x2022; Lecture</p>
+                        </div>
+                        <div class="right-content">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="item" hidden><img src="no.jpg">
+                            </label>
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="item" hidden><img src="maybe.jpg">
+                            </label>
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="item" hidden><img src="yes.jpg">
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Add more radio groups as needed -->
+
+                    <div class="btn-container">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="reset" class="btn btn-secondary">Reset</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col">
+            <div class="container mt-5">
+                <h4>Prioritize</h4>
+
+
+                <nav>
+
+                    <label for="touch"><span>Teaching Quality, Content, Time, and Inter-class distance</span></label>
+                    <input type="checkbox" id="touch">
+
+                    <ul class="slide">
+                        <li><a href="#">Teaching Quality</a></li>
+                        <li><a href="#">Teaching Quality</a></li>
+                        <li><a href="#">Teaching Quality</a></li>
+                        <li><a href="#">Teaching Quality</a></li>
+                    </ul>
+
+                </nav>
+
+                <table class="table table-sm">
+                    <tr>
+                        <th>Sunday</th>
+                        <th>Monday</th>
+                        <th>Tuesday</th>
+                        <th>Wendsday</th>
+                        <th>Thursday</th>
+                        <th>Friday</th>
+                        <th>Saturday</th>
+                    </tr>
+                    <tr>
+                        <td><div class="cal-01"><p>Sample Class</p><br><p>10:00 - 11:45</p><br><p>Mon / Wed</p></div><div class="cal-01"><p>Sample Class</p><br><p>10:00 - 11:45</p><br><p>Mon / Wed</p></div><div class="cal-01"><p>Sample Class</p><br><p>10:00 - 11:45</p><br><p>Mon / Wed</p></div></td>
+                        <td><div class="cal-01"><p>Sample Class</p><br><p>10:00 - 11:45</p><br><p>Mon / Wed</p></div><div class="cal-01"><p>Sample Class</p><br><p>10:00 - 11:45</p><br><p>Mon / Wed</p></div><div class="cal-01"><p>Sample Class</p><br><p>10:00 - 11:45</p><br><p>Mon / Wed</p></div></td>
+                        <td><div class="cal-01"><p>Sample Class</p><br><p>10:00 - 11:45</p><br><p>Mon / Wed</p></div></td>
+                        <td><div class="cal-01"><p>Sample Class</p><br><p>10:00 - 11:45</p><br><p>Mon / Wed</p></div><div class="cal-01"><p>Sample Class</p><br><p>10:00 - 11:45</p><br><p>Mon / Wed</p></div></td>
+                        <td><div class="cal-01"><p>Sample Class</p><br><p>10:00 - 11:45</p><br><p>Mon / Wed</p></div><div class="cal-01"><p>Sample Class</p><br><p>10:00 - 11:45</p><br><p>Mon / Wed</p></div></td>
+                        <td><div class="cal-01"><p>Sample Class</p><br><p>10:00 - 11:45</p><br><p>Mon / Wed</p></div></td>
+                        <td><div class="cal-01"><p>Sample Class</p><br><p>10:00 - 11:45</p><br><p>Mon / Wed</p></div><div class="cal-01"><p>Sample Class</p><br><p>10:00 - 11:45</p><br><p>Mon / Wed</p></div><div class="cal-01"><p>Sample Class</p><br><p>10:00 - 11:45</p><br><p>Mon / Wed</p></div><div class="cal-01"><p>Sample Class</p><br><p>10:00 - 11:45</p><br><p>Mon / Wed</p></div></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
