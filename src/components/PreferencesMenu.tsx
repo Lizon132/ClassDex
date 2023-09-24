@@ -1,15 +1,16 @@
 import { CoursePreferences } from "../types";
 
 export const getPreferences = (): CoursePreferences => {
-    const minChs = +document.getElementById("min-chs-input");
-    const maxChs = +document.getElementById("max-chs-input");
+    const minChs = +((document.getElementById("min-chs-input") as HTMLInputElement).value || NaN);
+    const maxChs = +((document.getElementById("max-chs-input") as HTMLInputElement).value || NaN);
+    const time = (document.getElementById("time-preference-select") as HTMLSelectElement).value;
+
     return {
-        time: document.getElementById("time-preference-select") as any || undefined,
+        time: (time as any) || undefined,
         minCreditHours: isFinite(minChs) ? minChs : undefined,
         maxCreditHours: isFinite(maxChs) ? maxChs : undefined,
     };
 }
-
 
 const PreferencesMenu = (update: () => void) => {
     return (
@@ -25,7 +26,7 @@ const PreferencesMenu = (update: () => void) => {
                 <div className="preference">
                     Time of Day:
                     <select id="time-preference-select" onChange={update}>
-                        <option value="">No preference</option>
+                        <option value="">No Preference</option>
                         <option value="early">Early</option>
                         <option value="late">Late</option>
                         <option value="middle">Mid-day</option>

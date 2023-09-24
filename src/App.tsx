@@ -80,11 +80,14 @@ const App = () => {
 
 
     const update = () => {
-        callAlgorithmAndUpdate(
-            orderSections(mySections, courseOrder),
-            requiredSectionCount(courseOrder),
-            getPreferences(),
-            setSectionResults,
+        setTimeout(
+            () => callAlgorithmAndUpdate(
+                orderSections(mySections, courseOrder),
+                requiredSectionCount(courseOrder),
+                getPreferences(),
+                setSectionResults,
+            ),
+            100,
         );
     }
 
@@ -144,7 +147,7 @@ const App = () => {
                 <div>{ SearchCourses(search, allCourses, sectionData) }</div>
             </div>
         </div>,
-        ScheduleLayout(mySections),
+        ScheduleLayout(sectionResults),
     );
 };
 
