@@ -5,11 +5,10 @@ import CourseLayout from "./CourseLayout";
 
 // Return whether a course matches the given search term
 function matchesSearch(search: string, course: Course): boolean {
+    // Check if the id or name contains the term
     const searchTerms = search.split(" ");
     for (let term of searchTerms) {
-        const lowerTerm = term.toLowerCase()
-        if (!(course.name.toLowerCase().includes(lowerTerm)
-              || course.title.toLowerCase().includes(lowerTerm))) {
+        if (!JSON.stringify([course.name, course.id]).toLowerCase().includes(term.toLowerCase())) {
             return false;
         }
     }

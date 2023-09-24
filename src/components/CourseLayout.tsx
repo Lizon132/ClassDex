@@ -1,19 +1,20 @@
 import { ReactNode, useState } from "react";
 import { CurrentSectionData } from "../App";
 import { Course, Section } from "../types";
+import CourseBodyLayout from "./CourseBodyLayout";
 import CourseSectionLayout from "./CourseSectionLayout";
 
 
 // Show an individual course in the course catalog
 const CourseLayout = (course: Course, mySections: CurrentSectionData, grabber?: ReactNode) => {
     const [folded, setFolded] = useState(true);
-    const numSectionsAdded = course.sections.filter(s => mySections.sections.includes(s)).length;
+    const numSectionsAdded = course.fullSections.filter(s => mySections.sections.includes(s)).length;
     return (
         <div className="course">
             <div className="course-header">
                 <div className="course-header-left">
                     { grabber }
-                    <span className="course-title">{ course.title } </span>
+                    <span className="course-title">{ course.id } </span>
                     <span className="course-name">{ course.name } </span>
                 </div>
 
@@ -30,13 +31,13 @@ const CourseLayout = (course: Course, mySections: CurrentSectionData, grabber?: 
                     {/* If any sections are already added, have a remove button. Otherwise, have an add button. */}
                     {(numSectionsAdded > 0) ? (
                         <button className="course-remove-all-button"
-                                onClick={() => mySections.remove(...course.sections)}
+                                onClick={() => mySections.remove(...course.fullSections)}
                                 >
                             -
                         </button>
                     ) : (
                         <button className="course-add-all-button"
-                                onClick={() => mySections.add(...course.sections)}
+                                onClick={() => mySections.add(...course.fullSections)}
                                 >
                             +
                         </button>
@@ -51,10 +52,9 @@ const CourseLayout = (course: Course, mySections: CurrentSectionData, grabber?: 
             </div>
 
             {/* Everything below will be hidden when the course is folded */}
-            <div className="course-body" hidden={folded}>
-                <div>Some more info</div>
+            <div className="course-body" style={{ "max-height": (folded ? "0px" : "700px") } as any}>
                 {/* For each section, have a button to individually add/remove that section. */}
-                {course.sections.map(section => CourseSectionLayout(section, mySections))}
+                {course.fullSections.map(section => CourseSectionLayout(section, mySections))}
             </div>
         </div>
     )

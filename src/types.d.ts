@@ -1,23 +1,48 @@
-export type Time = [number, number];
-export type Meeting = { start: Time, end: Time, days: Day[] };
-
-export type Section = {
-    times: Meeting[];
-    title: string;
-    name: string;
-    max: string | null;
-    enrolled: string | null;
-};
-
-export type Course = {
-    title: string,
-    name: string,
-    sections: Section[],
-}
-
 export type Preferences = Partial<{
     time: "early" | "late" | "middle",
     freeFridays: boolean,
     minCreditHours: number,
     maxCreditHours: number,
-}>
+}>;
+
+
+export type CourseTimeRange = {
+    dayOfWeek: number,
+    startHour: number,
+    startMinute: number,
+    endHour: number,
+    endMinute: number,
+};
+
+export type CourseSection = {
+    id: string,
+    crn: string,
+    timeRanges: CourseTimeRange[],
+    location: string,
+    instructor: string,
+};
+
+export type Course = {
+    id: string,
+    name: string,
+    creditHours: number,
+    courseType: string,
+    languageOfInstruction: string,
+    department: string,
+    gradingMode?: string,
+    prerequisites: string,
+    description: string,
+    satisfiesDistribution?: string,
+    methodOfInstruction: string,
+    finalExam: string,
+    gradeMode: string,
+    analyzingDiversity: boolean,
+    sections: CourseSection[],
+    fullSections: Section[],
+};
+
+export type Section = {
+    course: Course,
+    section: CourseSection,
+};
+

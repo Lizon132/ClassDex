@@ -1,32 +1,31 @@
 import CurrentSections from './components/CurrentSections';
 import TwoColumns from './components/TwoColumns';
-import './App.css';
 import { Course, Section } from './types';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import SearchCourses from './components/SearchCourses';
-import SESSIONS from "./courses";
+import COURSES from "./courses";
 import SearchBox from './components/SearchBox';
 import PreferencesMenu from './components/PreferencesMenu';
+import ScheduleLayout from './components/ScheduleLayout';
+
+import './App.css';
 
 
 type AppState = "current" | "browse";
 
-const allSections = SESSIONS as any as Section[];
+const allCourses = (COURSES as any as Course[]);
+allCourses.forEach(c => {
+    c.sections = c.sections.filter(s => s.timeRanges?.length > 0);
+});
 
-// Generate a list of all courses grouped by name
-const allCourses: Course[] = [];
-for (let section of allSections) {
-    if (section.times.length === 0) continue;
-
-    const existing = allCourses.find(c => c.name == section.name);
-    if (existing) {
-        if (existing.sections.every(s => JSON.stringify(s.times) !== JSON.stringify(section.times))) {
-            existing.sections.push(section);
-        }
-    } else {
-        allCourses.push({ name: section.name, title: section.title, sections: [section] });
-    }
-}
+const allSections: Section[] = allCourses.flatMap(course => {
+    course.fullSections = [];
+    return course.sections.map(section => {
+        const fullSection = { course, section };
+        course.fullSections.push(fullSection);
+        return fullSection;
+    });
+});
 
 
 // Props passed down to children in order to access the currently added sections
@@ -46,6 +45,7 @@ const App = () => {
     const [search, setSearch] = useState("");
 
 
+    // Create an object that allows child components to modify the user's selected sections
     const sectionData = {
         sections: mySections,
         add: (...newSections: Section[]) => {
@@ -65,11 +65,11 @@ const App = () => {
         <div>
             <div className="left-column-header">
                 {(appState === "current") ? null
-                     : <button onClick={() => {
-                         setAppState("current");
-                         // Clear the search box
-                         (document.getElementById("search-box-input") as HTMLInputElement).value = "";
-                     }}>←</button>
+                 : <button onClick={() => {
+                               setAppState("current");
+                               // Clear the search box
+                               (document.getElementById("search-box-input") as HTMLInputElement).value = "";
+                           }}>←</button>
                 }
                 {
                     SearchBox((newSearch) => {
@@ -90,7 +90,7 @@ const App = () => {
                 <div>{ SearchCourses(search, allCourses, sectionData) }</div>
             </div>
         </div>,
-        "Right",
+        ScheduleLayout(mySections),
     );
 };
 

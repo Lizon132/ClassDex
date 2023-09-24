@@ -1,18 +1,21 @@
 import { CurrentSectionData } from "../App";
-import { Section, Time } from "../types"
+import { Section } from "../types"
 
-function timeString(time: Time): string {
-    const pm = time[0] >= 12;
-    if (time[0] > 12) time[0] -= 12;
-    if (time[0] === 0) time[0] = 12;
+export function timeString(hour: number, minute: number): string {
+    const pm = hour >= 12;
+    if (hour > 12) hour -= 12;
+    if (hour === 0) hour = 12;
 
-    return `${time[0]}`.padStart(2, "0") + ":" + `${time[1]}`.padStart(2, "0") + (pm ? "PM" : "AM");
+    const str = `${hour}`.padStart(2, "0") + ":" + `${minute}`.padStart(2, "0") + (pm ? "PM" : "AM");
+    return str;
 }
 
 const CourseSectionLayout = (section: Section, mySections: CurrentSectionData) => {
     return (
         <div className="course-section">
-            { section.times.map(({ start, end }) => timeString(start) + " - " + timeString(end)).join("\n") }
+            { section.section.timeRanges.map(({ startHour, startMinute, endHour, endMinute }) => (
+                timeString(startHour, startMinute) + " - " + timeString(endHour, endMinute)
+            )).join("\n") }
             { mySections.sections.includes(section) ? (
                 <button onClick={() => mySections.remove(section)}>-</button>
             ) : (

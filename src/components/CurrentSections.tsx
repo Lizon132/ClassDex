@@ -3,6 +3,7 @@ import { CourseOrder, CurrentSectionData } from '../App';
 import CourseLayout from './CourseLayout';
 import * as DragAndDrop from "./DragAndDrop";
 
+
 function moveArrayItem<T>(array: T[], idx: number, to: number) {
     if (idx >= array.length) throw new Error("Move Array Item: From index out of range");
     if (to >= array.length) throw new Error("Move Array Item: To index out of range");
@@ -47,7 +48,7 @@ const CurrentSections = (order: CourseOrder, setOrder: (o: CourseOrder) => void,
         }
 
         // Check if the user has added any of the course sections
-        const numSectionsAdded = course.sections.filter(s => mySections.sections.includes(s)).length;
+        const numSectionsAdded = course.fullSections.filter(s => mySections.sections.includes(s)).length;
         if (numSectionsAdded > 0) {
             if (passedOptionalFlag) anyOptionalCourses = true;
             else anyRequiredCourses = true;

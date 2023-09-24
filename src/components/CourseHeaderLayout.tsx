@@ -1,11 +1,12 @@
 import { CurrentSectionData } from "../App";
 import { Course } from "../types";
 
+
 const CourseHeaderLayout = (course: Course, mySections: CurrentSectionData, numSectionsAdded: number) => {
     return (
         <div className="course-header">
             <div className="course-header-left">
-                <span className="course-title">{ course.title } </span>
+                <span className="course-title">{ course.id } </span>
                 <span className="course-name">{ course.name } </span>
             </div>
 
@@ -22,13 +23,13 @@ const CourseHeaderLayout = (course: Course, mySections: CurrentSectionData, numS
                 {/* If any sections are already added, have a remove button. Otherwise, have an add button. */}
                 {(numSectionsAdded > 0) ? (
                     <button className="course-remove-all-button"
-                            onClick={() => mySections.remove(...course.sections)}
+                            onClick={() => mySections.remove(...course.fullSections)}
                     >
                         -
                     </button>
                 ) : (
                     <button className="course-add-all-button"
-                            onClick={() => mySections.add(...course.sections)}
+                            onClick={() => mySections.add(...course.fullSections)}
                     >
                         +
                     </button>

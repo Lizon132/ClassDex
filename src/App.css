@@ -1,6 +1,6 @@
 body {
     overflow: hidden;
-    height: 100;
+    height: 98vh;
 }
 
 /* Make buttons circular */
@@ -67,12 +67,14 @@ button {
 .left-column {
     overflow: scroll;
     height: 100%;
+    background-color: white;
 }
 
 .right-column {
-    overflow: scroll;
+    overflow: hidden;
     margin-left: 5px;
-
+    padding-right: 2px;
+    flex: 1;
 }
 
 .separator {
@@ -84,7 +86,7 @@ button {
     border-right: solid 1px #ccc;
     cursor: col-resize;
 
-    transform: translateX(+200%);
+    translate: 15px;
 }
 
 
@@ -155,7 +157,12 @@ button {
 }
 
 .course-body {
-    margin-top: 10px;
+    overflow: hidden;
+    padding-top: 10px;
+
+    height: fit-content;
+    max-height: 0px;
+    transition: max-height 0.8s ease;
 }
 
 .course-section {
@@ -213,4 +220,263 @@ button {
     background-color: transparent;
     border: gray solid 1px;
     font-weight: 400;
+}
+
+
+
+/* Calendar */
+:root {
+    --grid: #ddd;
+}
+
+.calendar {
+    display: flex;
+    height: 100%;
+}
+
+.calendar-spacer, .calendar-event, .calendar-time {
+    margin: 0px;
+}
+
+.calendar-day-label {
+    font-family: monospace;
+    color: #444;
+    font-size: 18px;
+}
+
+
+.calendar-event {
+    width: 100%;
+}
+
+.calendar-event div {
+    padding: 1px;
+    height: calc(100% - 10px);
+    width: calc(100% - 10px);
+
+    font-size: small;
+
+    overflow: hidden;
+
+    padding: 3px;
+    margin: 2px;
+    border-radius: 5px;
+    border: 1px solid #556;
+    background-color: #eef4ff;
+}
+
+
+.calendar-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    border-left: 1px solid var(--grid);
+}
+
+.calendar-time-column {
+    padding: 0px 5px 0px 10px;
+}
+
+.calendar-time {
+    position: relative;
+    /* translate: 0 30px; */
+}
+
+.calendar-time div {
+    font-family: monospace;
+    color: gray;
+    font-size: 14px;
+    /* translate: 0 10px; */
+}
+
+#calendar-time-0::before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100vw;
+    background-color: var(--grid);
+    z-index: -1;
+    left: -10px
+}
+#calendar-time-1::before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100vw;
+    background-color: var(--grid);
+    z-index: -1;
+    left: -10px
+}
+#calendar-time-2::before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100vw;
+    background-color: var(--grid);
+    z-index: -1;
+    left: -10px
+}
+#calendar-time-3::before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100vw;
+    background-color: var(--grid);
+    z-index: -1;
+    left: -10px
+}
+#calendar-time-4::before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100vw;
+    background-color: var(--grid);
+    z-index: -1;
+    left: -10px
+}
+#calendar-time-5::before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100vw;
+    background-color: var(--grid);
+    z-index: -1;
+    left: -10px
+}
+#calendar-time-6::before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100vw;
+    background-color: var(--grid);
+    z-index: -1;
+    left: -10px
+}
+#calendar-time-7::before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100vw;
+    background-color: var(--grid);
+    z-index: -1;
+    left: -10px
+}
+#calendar-time-8::before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100vw;
+    background-color: var(--grid);
+    z-index: -1;
+    left: -10px
+}
+#calendar-time-9::before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100vw;
+    background-color: var(--grid);
+    z-index: -1;
+    left: -10px
+}
+#calendar-time-10::before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100vw;
+    background-color: var(--grid);
+    z-index: -1;
+    left: -10px
+}
+#calendar-time-11::before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100vw;
+    background-color: var(--grid);
+    z-index: -1;
+    left: -10px
+}
+#calendar-time-12::before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100vw;
+    background-color: var(--grid);
+    z-index: -1;
+    left: -10px
+}
+#calendar-time-13::before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100vw;
+    background-color: var(--grid);
+    z-index: -1;
+    left: -10px
+}
+#calendar-time-14::before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100vw;
+    background-color: var(--grid);
+    z-index: -1;
+    left: -10px
+}
+#calendar-time-15::before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100vw;
+    background-color: var(--grid);
+    z-index: -1;
+    left: -10px
+}
+#calendar-time-16::before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100vw;
+    background-color: var(--grid);
+    z-index: -1;
+    left: -10px
+}
+#calendar-time-17::before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100vw;
+    background-color: var(--grid);
+    z-index: -1;
+    left: -10px
+}
+#calendar-time-18::before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100vw;
+    background-color: var(--grid);
+    z-index: -1;
+    left: -10px
+}
+#calendar-time-19::before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100vw;
+    background-color: var(--grid);
+    z-index: -1;
+    left: -10px
+}
+#calendar-time-20::before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100vw;
+    background-color: var(--grid);
+    z-index: -1;
+    left: -10px
 }
