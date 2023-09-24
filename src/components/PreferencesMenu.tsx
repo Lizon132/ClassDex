@@ -25,7 +25,7 @@ const PreferencesMenu = (update: () => void) => {
             <div id="preferences-container">
                 <div className="preference">
                     Time of Day:
-                    <select id="time-preference-select" onChange={update}>
+                    <select id="time-preference-select" onChange={() => update()}>
                         <option value="">No Preference</option>
                         <option value="early">Early</option>
                         <option value="late">Late</option>
@@ -34,11 +34,11 @@ const PreferencesMenu = (update: () => void) => {
                 </div>
                 <div className="preference">
                     Min Credit Hours:
-                    <input id="min-chs-input" type="text" onChange={update}></input>
+                    <input id="min-chs-input" type="text" onChange={() => update()}></input>
                 </div>
                 <div className="preference">
                     Max Credit Hours:
-                    <input id="max-chs-input" type="text" onChange={update}></input>
+                    <input id="max-chs-input" type="text" onChange={() => update()}></input>
                 </div>
             </div>
         </div>

@@ -58,7 +58,7 @@ export async function callAlgorithmAndUpdate(
     sections: Section[], numRequired: number, prefs: CoursePreferences,
     update: (s: Section[]) => void,
 ) {
-    console.log(prefs);
+    console.log(prefs, sections);
     const withMetadata = sections.map(s => ({
         session: s.section,
         weight: 1,
@@ -66,12 +66,12 @@ export async function callAlgorithmAndUpdate(
         courseId: s.course.id,
     }));
 
-    const scheduleWithMetadata = withMetadata;
-    // const scheduleWithMetadata = await computeOptimalSessionScheduling(
-    //     withMetadata,
-    //     prefs.minCreditHours ?? 12,
-    //     prefs.maxCreditHours ?? 18,
-    // );
+    // const scheduleWithMetadata = withMetadata;
+    const scheduleWithMetadata = await computeOptimalSessionScheduling(
+        withMetadata,
+        prefs.minCreditHours ?? 12,
+        prefs.maxCreditHours ?? 18,
+    );
 
     // Find the correct courses based on the crns returned from the optimization function
     const schedule = scheduleWithMetadata.map(metadata => (
