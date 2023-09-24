@@ -81,7 +81,7 @@ export async function callAlgorithmAndUpdate(
         if (i <= numRequired) {
             withMetadata[i].weight += 20;
         } else {
-            withMetadata[i].weight += (withMetadata.length - i - numRequired)*0.5;
+            withMetadata[i].weight += (withMetadata.length - i)*0.5;
         }
     }
 
