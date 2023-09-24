@@ -8,7 +8,9 @@ function matchesSearch(search: string, course: Course): boolean {
     // Check if the id or name contains the term
     const searchTerms = search.split(" ");
     for (let term of searchTerms) {
-        if (!JSON.stringify([course.name, course.id]).toLowerCase().includes(term.toLowerCase())) {
+        if (!JSON.stringify([
+            course.name, course.id, ...course.sections.map(s => s.instructor)
+        ]).toLowerCase().includes(term.toLowerCase())) {
             return false;
         }
     }

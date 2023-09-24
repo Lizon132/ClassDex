@@ -1,4 +1,17 @@
-const PreferencesMenu = () => {
+import { CoursePreferences } from "../types";
+
+export const getPreferences = (): CoursePreferences => {
+    const minChs = +document.getElementById("min-chs-input");
+    const maxChs = +document.getElementById("max-chs-input");
+    return {
+        time: document.getElementById("time-preference-select") as any || undefined,
+        minCreditHours: isFinite(minChs) ? minChs : undefined,
+        maxCreditHours: isFinite(maxChs) ? maxChs : undefined,
+    };
+}
+
+
+const PreferencesMenu = (update: () => void) => {
     return (
         <div id="preferences-menu">
             <label htmlFor="preferences-checkbox">
@@ -11,7 +24,7 @@ const PreferencesMenu = () => {
             <div id="preferences-container">
                 <div className="preference">
                     Time of Day:
-                    <select id="time-preference-select">
+                    <select id="time-preference-select" onChange={update}>
                         <option value="">No preference</option>
                         <option value="early">Early</option>
                         <option value="late">Late</option>
@@ -20,11 +33,11 @@ const PreferencesMenu = () => {
                 </div>
                 <div className="preference">
                     Min Credit Hours:
-                    <input id="min-chs-input" type="text"></input>
+                    <input id="min-chs-input" type="text" onChange={update}></input>
                 </div>
                 <div className="preference">
                     Max Credit Hours:
-                    <input id="max-chs-input" type="text"></input>
+                    <input id="max-chs-input" type="text" onChange={update}></input>
                 </div>
             </div>
         </div>

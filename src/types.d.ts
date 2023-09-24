@@ -1,4 +1,4 @@
-export type Preferences = Partial<{
+export type CoursePreferences = Partial<{
     time: "early" | "late" | "middle",
     freeFridays: boolean,
     minCreditHours: number,
@@ -20,6 +20,7 @@ export type CourseSection = {
     timeRanges: CourseTimeRange[],
     location: string,
     instructor: string,
+    instructorRating?: number,
 };
 
 export type Course = {
@@ -45,4 +46,13 @@ export type Section = {
     course: Course,
     section: CourseSection,
 };
+
+
+
+export type SessionWithMetadata = {
+    session: CourseSection;
+    weight: number;
+    credit: number;
+    courseId: string;
+}
 

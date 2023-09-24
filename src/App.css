@@ -192,6 +192,19 @@ button {
     background-color: #eef4ff;
 }
 
+.rmp {
+    margin-top: 4px;
+    margin-left: 15px;
+    font-size: 0.85em;
+}
+
+.rmp-rating {
+    margin-left: 6px;
+    font-size: 1.4em;
+    font-weight: 300;
+    display: inline;
+}
+
 
 .course-info-header {
     margin-top: 20px;

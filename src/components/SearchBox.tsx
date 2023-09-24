@@ -12,7 +12,7 @@ const SearchBox = (setSearchTerm: (s: string) => void) => {
                 id="search-box-input"
                 key="searchBox"
                 type="text"
-                placeholder="🔎 Find Courses"
+                placeholder="Find Courses 🔎"
                 onChange={(e) => {}}
             />
         </form>

@@ -59,8 +59,6 @@ const ScheduleLayout = (sections: Section[]) => {
         text: [hourString(minHour+i)],
     })));
 
-    console.log(minMinute, totalMinutes, maxHour);
-
     return (
         <div className="calendar"> {
             days.map((day, dayIdx) => {

@@ -46,7 +46,13 @@ const CourseSectionLayout = (section: Section, mySections: CurrentSectionData) =
                 )) }
                 <div>
                     <span className="course-info-header">Instructor:</span>
-                    <span className="course-info-body"> {section.section.instructor} </span>
+                    <span className="course-info-body">{ section.section.instructor }</span>
+                    { section.section.instructorRating && (
+                        <div className="rmp">
+                            Rate My Professor Rating = 
+                            <div className="rmp-rating">{ section.section.instructorRating }</div>
+                        </div>
+                    ) }
                 </div>
             </div>
             { sectionIsAdded ? (
