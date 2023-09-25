@@ -77,13 +77,11 @@ export async function callAlgorithmAndUpdate(
         }
     }
 
-    for (let i = 0; i < withMetadata.length; i++) {
-        if (i <= numRequired) {
-            withMetadata[i].weight += 20;
-        } else {
-            withMetadata[i].weight += (withMetadata.length - i)*0.5;
-        }
+    for (let i = 0; i < numRequired; i++) {
+        withMetadata[i].weight += 20;
     }
+
+    console.log(withMetadata);
 
     // const scheduleWithMetadata = withMetadata;
     const scheduleWithMetadata = await computeOptimalSessionScheduling(
