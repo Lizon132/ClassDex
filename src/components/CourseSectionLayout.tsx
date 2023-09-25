@@ -36,7 +36,7 @@ const CourseSectionLayout = (section: Section, mySections: CurrentSectionData) =
                 { ranges.map(({ start, end, days }) => (
                     <div className="course-section-time">
                         {
-                            [6,1,2,3,4,5].map(day => {
+                            [6,0,1,2,3,4,5].map(day => {
                                 const dayClass = days.includes(day) ? "weekday weekday-active" : "weekday";
                                 return <div className={ dayClass }>{ "MTWRFSS"[day] }</div>;
                             })
