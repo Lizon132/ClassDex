@@ -21,6 +21,7 @@ export type CourseSection = {
     location: string,
     instructor: string,
     instructorRating?: number,
+    instructorReviews?: number,
 };
 
 export type Course = {

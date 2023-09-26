@@ -14,9 +14,9 @@ function hourString(hour: number): string {
     return hour + (pm ? "PM" : "AM");
 }
 
-const ScheduleLayout = (sections: Section[]) => {
+const ScheduleLayout = (ps: { sections: Section[] }) => {
     let [minHour, maxHour] = [8, 16];
-    for (let section of sections) {
+    for (let section of ps.sections) {
         for (let time of section.section.timeRanges) {
             if (time.startHour < minHour) minHour = time.startHour;
             const endHour = time.endHour + (time.endMinute>0 ? 1 : 0);
@@ -28,13 +28,13 @@ const ScheduleLayout = (sections: Section[]) => {
     // Add 15 to add some buffer space at the end so the calendar isn't cramped
     const totalMinutes = (maxHour - minHour) * 60 + 15;
     // Check if any times are 5 or 6 (sunday or saturday)
-    const weekendClasses = sections.find(s => s.section.timeRanges.find(t => t.dayOfWeek >= 5));
+    const weekendClasses = ps.sections.find(s => s.section.timeRanges.find(t => t.dayOfWeek >= 5));
     const numberOfDays = weekendClasses ? 7 : 5;
 
     const days: { start: number, end: number, text: string[] }[][]
           = Array.from(new Array(numberOfDays), () => []);
 
-    for (let section of sections) {
+    for (let section of ps.sections) {
         for (let time of section.section.timeRanges) {
             days[time.dayOfWeek].push({
                 start: time.startHour*60 + time.startMinute,

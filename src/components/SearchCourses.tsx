@@ -4,7 +4,7 @@ import CourseLayout from "./CourseLayout";
 
 
 // Return whether a course matches the given search term
-function matchesSearch(search: string, course: Course): boolean {
+const matchesSearch = (search: string, course: Course): boolean => {
     // Check if the id or name contains the term
     const searchTerms = search.split(" ");
     for (let term of searchTerms) {
@@ -18,29 +18,19 @@ function matchesSearch(search: string, course: Course): boolean {
 }
 
 
-function SearchCourses(search: string, allCourses: Course[], mySections: CurrentSectionData) {
-    // Hide any courses which don't match the search term
-    // Keep track of whether any match the search term
-    let anyMatchesFound = false;
-    const filteredCourses = allCourses.map((course) => {
-        const matched = matchesSearch(search, course);
-        if (matched) anyMatchesFound = true;
-        return (
-            <div hidden={!matched}>
-                {CourseLayout(course, mySections)}
-            </div>
-        );
-    });
+const SearchCourses = (ps: { search: string, allCourses: Course[], mySections: CurrentSectionData }) => {
+    const filteredCourses = ps.allCourses
+          .filter(course => matchesSearch(ps.search, course))
+          .map(course => <CourseLayout course={course} mySections={ps.mySections} />);
 
     // Even courses which don't match must be returned (just hidden) since they contain state
     return (
-        <div>
-            { anyMatchesFound ? null : <div className="gray-label">No matches found</div> }
-            {filteredCourses}
-        </div>
+        <div> {
+            filteredCourses.length > 0 ? filteredCourses
+                : <div className="gray-label">No matches found</div>
+        } </div>
     )
 
 }
 
 export default SearchCourses;
-

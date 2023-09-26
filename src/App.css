@@ -16,6 +16,10 @@ button {
     min-height: 25px;
 }
 
+.exit-button {
+    transform: scale(1.3, 0.7);
+}
+
 .course-remove-all-button, .remove-button {
     font-weight: bold;
     color: #a00;
@@ -170,11 +174,13 @@ button {
 
 .course-body {
     overflow: hidden;
-    padding-top: 10px;
 
     height: fit-content;
-    max-height: 0px;
-    transition: max-height 0.8s ease;
+    transition: max-height 0.3s ease;
+}
+
+.course-body-inner {
+    padding-top: 10px;
 }
 
 .course-section {

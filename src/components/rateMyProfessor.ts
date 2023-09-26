@@ -31,19 +31,21 @@ export function fetchRmpData() {
                 professorRatings[section.instructor] = instructorsSections;
 
                 (async function() {
-                    const teachers = await ratings.searchTeacher(section.instructor, riceRmpId);
-                    if (teachers.length === 0) {
-                        // If no teacher was found, set the rating to null
-                        professorRatings[section.instructor] = null;
-                        return;
-                    }
+                    try {
+                        const teachers = await ratings.searchTeacher(section.instructor, riceRmpId);
+                        if (teachers.length === 0) {
+                            // If no teacher was found, set the rating to null
+                            professorRatings[section.instructor] = null;
+                            return;
+                        }
 
-                    const ratingInfo = await ratings.getTeacher(teachers[0].id);
+                        const ratingInfo = await ratings.getTeacher(teachers[0].id);
 
-                    // Add the rating to all of the queued sections
-                    for (let section of instructorsSections) {
-                        section.instructorRating = ratingInfo.avgRating;
-                    }
+                        // Add the rating to all of the queued sections
+                        for (let section of instructorsSections) {
+                            section.instructorRating = ratingInfo.avgRating;
+                        }
+                    } catch {}
                 })();
             }
         }

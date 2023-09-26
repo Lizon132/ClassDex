@@ -10,10 +10,10 @@ export function timeString(hour: number, minute: number): string {
     return str;
 }
 
-const CourseSectionLayout = (section: Section, mySections: CurrentSectionData) => {
+const CourseSectionLayout = (ps: { section: Section, mySections: CurrentSectionData }) => {
     // Group time ranges by same start and end times on different days
     const ranges: { start: string, end: string, days: number[] }[] = [];
-    for (let time of section.section.timeRanges) {
+    for (let time of ps.section.section.timeRanges) {
         const startStr = timeString(time.startHour, time.startMinute);
         const endStr = timeString(time.endHour, time.endMinute);
 
@@ -26,13 +26,13 @@ const CourseSectionLayout = (section: Section, mySections: CurrentSectionData) =
         }
     }
 
-    const sectionIsAdded = mySections.sections.includes(section);
+    const sectionIsAdded = ps.mySections.sections.includes(ps.section);
 
 
     return (
         <div className={ sectionIsAdded ? "course-section course-section-added" : "course-section" }>
             <div className="course-section-info">
-                <div className="course-info-body">CRN: { section.section.crn }</div>
+                <div className="course-info-body">CRN: { ps.section.section.crn }</div>
                 { ranges.map(({ start, end, days }) => (
                     <div className="course-section-time">
                         {
@@ -46,23 +46,23 @@ const CourseSectionLayout = (section: Section, mySections: CurrentSectionData) =
                 )) }
                 <div>
                     <span className="course-info-header">Instructor:</span>
-                    <span className="course-info-body">{ section.section.instructor }</span>
-                    { section.section.instructorRating && (
+                    <span className="course-info-body">{ ps.section.section.instructor }</span>
+                    { ps.section.section.instructorRating && (
                         <div className="rmp">
                             Rate My Professor Rating = 
-                            <div className="rmp-rating">{ section.section.instructorRating }</div>
+                            <div className="rmp-rating">{ ps.section.section.instructorRating }</div>
                         </div>
                     ) }
                 </div>
             </div>
             { sectionIsAdded ? (
                 <button className="remove-button"
-                        onClick={() => mySections.remove(section)}>
+                        onClick={() => ps.mySections.remove(ps.section)}>
                     —
                 </button>
             ) : (
                 <button className="add-button"
-                        onClick={() => mySections.add(section)}>
+                        onClick={() => ps.mySections.add(ps.section)}>
                     +
                 </button>
             )}

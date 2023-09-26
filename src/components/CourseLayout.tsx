@@ -1,64 +1,74 @@
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { CurrentSectionData } from "../App";
 import { Course } from "../types";
 import CourseBodyLayout from "./CourseBodyLayout";
 
 
 // Show an individual course in the course catalog
-const CourseLayout = (course: Course, mySections: CurrentSectionData, grabber?: ReactNode) => {
-    const [folded, setFolded] = useState(true);
+const CourseLayout = (ps: {
+    course: Course,
+    mySections: CurrentSectionData,
+    grabber?: ReactNode
+}) => {
+    // Null menas it has never been opened
+    // True means it is expanded
+    // False means it has been opened, but is currently hidden
+    // This is to enable a closing animation
+    const [expanded, setExpanded] = useState(null as null | boolean);
 
-    const numSectionsAdded = course.fullSections.filter(s => mySections.sections.includes(s)).length;
+    const numSectionsAdded = ps.course.fullSections.filter(s => ps.mySections.sections.includes(s)).length;
+
+    // console.log("Course = ", ps.course.id);
+    const elementId = "course-body-" + ps.course.id.split(" ").join("-");
+    useEffect(() => {
+        const elem = document.getElementById(elementId);
+        elem.style.maxHeight = expanded ? `${elem.scrollHeight}px` : "0px";
+    }, [expanded]);
 
     return (
         <div className="course">
             <div className="course-header">
                 <div className="course-header-left">
-                    { grabber }
-                    <span className="course-title">{ course.id } </span>
-                    <span className="course-name">{ course.name } </span>
+                    { ps.grabber }
+                    <span className="course-title">{ ps.course.id } </span>
+                    <span className="course-name">{ ps.course.name } </span>
                 </div>
 
                 <div className="course-header-right">
                     {/* Display how many sections are added */}
                     { numSectionsAdded > 0 &&
-                      <span style={{ color: numSectionsAdded === course.sections.length ? "green" : "orange" }}
-                            className="course-number-added"
-                            >
-                          ({ numSectionsAdded }/{ course.sections.length })
+                      <span style={{ color: numSectionsAdded === ps.course.sections.length ? "green" : "orange" }}
+                            className="course-number-added">
+                          ({ numSectionsAdded }/{ ps.course.sections.length })
                       </span>
                     }
 
                     {/* If any sections are already added, have a remove button. Otherwise, have an add button. */}
                     {(numSectionsAdded > 0) ? (
                         <button className="course-remove-all-button"
-                                onClick={() => mySections.remove(...course.fullSections)}
-                                >
+                                onClick={() => ps.mySections.remove(...ps.course.fullSections)}>
                             —
                         </button>
                     ) : (
                         <button className="course-add-all-button"
-                                onClick={() => mySections.add(...course.fullSections)}
-                                >
+                                onClick={() => ps.mySections.add(...ps.course.fullSections)}>
                             +
                         </button>
                     )}
 
                     <button className="course-fold-button"
-                            onClick={() => setFolded(!folded)}
-                            >
-                        { folded ? "◥" : "◢" }
+                            onClick={() => { setExpanded(!expanded); }}>
+                        { expanded ? "◢" : "◥" }
                     </button>
                 </div>
             </div>
 
             {/* Everything below will be hidden when the course is folded */}
-            <div className="course-body" style={{ "max-height": (folded ? "0px" : "1500px") } as any}>
-                { CourseBodyLayout(folded, course, mySections) }
-            </div>
+            <div className="course-body" id={elementId} > {
+                expanded === null ? null : <CourseBodyLayout course={ps.course} mySections={ps.mySections} />
+            } </div>
         </div>
-    )
+    );
 }
 
 export default CourseLayout;
-

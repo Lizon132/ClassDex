@@ -1,10 +1,10 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { CourseOrder, CurrentSectionData } from '../App';
 import CourseLayout from './CourseLayout';
 import * as DragAndDrop from "./DragAndDrop";
 
 
-function moveArrayItem<T>(array: T[], idx: number, to: number) {
+const moveArrayItem = <T,>(array: T[], idx: number, to: number) => {
     if (idx >= array.length) throw new Error("Move Array Item: From index out of range");
     if (to >= array.length) throw new Error("Move Array Item: To index out of range");
     if (idx === to) return;
@@ -15,12 +15,16 @@ function moveArrayItem<T>(array: T[], idx: number, to: number) {
 }
 
 
-const CurrentSections = (order: CourseOrder, setOrder: (o: CourseOrder) => void, mySections: CurrentSectionData) => {
+const CurrentSections = (ps: {
+    order: CourseOrder,
+    setOrder: (o: CourseOrder) => void,
+    mySections: CurrentSectionData,
+}) => {
     useEffect(() => {
         for (let div of Array.from(document.getElementsByClassName("grabber-container"))) {
             const grabber = DragAndDrop.createGrabber((start, end) => {
-                moveArrayItem(order, start, end);
-                setOrder([...order]);
+                moveArrayItem(ps.order, start, end);
+                ps.setOrder([...ps.order]);
             });
             div.replaceChildren(grabber);
         }
@@ -31,7 +35,7 @@ const CurrentSections = (order: CourseOrder, setOrder: (o: CourseOrder) => void,
     let anyOptionalCourses = false;
     let passedOptionalFlag = false;
 
-    const draggableElements = order.map(course => {
+    const draggableElements = ps.order.map(course => {
         if (course === "Optional") {
             passedOptionalFlag = true;
             const optionalCoursesLabel = <div className="courses-heading">Optional Courses:</div>;
@@ -48,7 +52,7 @@ const CurrentSections = (order: CourseOrder, setOrder: (o: CourseOrder) => void,
         }
 
         // Check if the user has added any of the course sections
-        const numSectionsAdded = course.fullSections.filter(s => mySections.sections.includes(s)).length;
+        const numSectionsAdded = course.fullSections.filter(s => ps.mySections.sections.includes(s)).length;
         if (numSectionsAdded > 0) {
             if (passedOptionalFlag) anyOptionalCourses = true;
             else anyRequiredCourses = true;
@@ -57,7 +61,8 @@ const CurrentSections = (order: CourseOrder, setOrder: (o: CourseOrder) => void,
         // Width is set manually because otherwise the first row gets stuck at 200px
         return (
             <div style={{ display: numSectionsAdded ? "block" : "none" }}>
-                { CourseLayout(course, mySections, <span className="grabber-container"></span>) }
+                <CourseLayout course={course} mySections={ps.mySections}
+                               grabber={<span className="grabber-container"></span>} />
             </div>
         );
     });
@@ -65,7 +70,7 @@ const CurrentSections = (order: CourseOrder, setOrder: (o: CourseOrder) => void,
     return (
         <div>
             <div className="courses-heading">Required Courses:</div>
-            <div className="drag-container"> {draggableElements} </div>
+            <div className="drag-container">{ draggableElements }</div>
             {<div hidden={anyOptionalCourses} className="warning-label">No optional courses</div>}
         </div>
     );

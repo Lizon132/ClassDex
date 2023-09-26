@@ -72,14 +72,14 @@ const App = () => {
     // Which sections you have selected
     const [mySections, setMySections] = useState([] as Section[]);
     // The priority of your courses
-    const [courseOrder, setCourseOrder] = useState(["Optional" as const, ...allCourses]);
+    const [courseOrder, setCourseOrder] = useState(["Optional"] as CourseOrder);
     // The current search term
     const [search, setSearch] = useState("");
     // The schedule results from the algorithm
     const [sectionResults, setSectionResults] = useState([] as Section[]);
 
 
-    const update = (sections: Section[] = mySections) => {
+    const updateSchedule = (sections: Section[] = mySections) => {
         setTimeout(
             () => {
                 callAlgorithmAndUpdate(
@@ -96,12 +96,12 @@ const App = () => {
     const setMySectionsAndUpdate = (sections: Section[]) => {
         console.log("Setting", sections)
         setMySections(sections);
-        update(sections);
+        updateSchedule(sections);
     }
 
     const setCourseOrderAndUpdate = (order: CourseOrder) => {
         setCourseOrder(order);
-        update();
+        updateSchedule();
     }
 
 
@@ -113,45 +113,55 @@ const App = () => {
                 if (!mySections.includes(newSection)) {
                     mySections.push(newSection);
                 }
+                if (!courseOrder.includes(newSection.course)) {
+                    courseOrder.push(newSection.course);
+                }
             }
+            setCourseOrder([...courseOrder]);
             setMySectionsAndUpdate([...mySections]);
         },
         remove: (...removeSections: Section[]) => {
-            setMySectionsAndUpdate(mySections.filter(s => !removeSections.includes(s)));
+            const newSections = mySections.filter(s => !removeSections.includes(s));
+            setCourseOrder(courseOrder.filter(course => (
+                newSections.find(section => section.course === course)
+            )));
+            setMySectionsAndUpdate(newSections);
         },
     }
 
-    return TwoColumns(
-        <div>
-            <div className="left-column-header">
-                {(appState === "current") ? null
-                 : <button onClick={() => {
-                               setAppState("current");
-                               // Clear the search box
-                               (document.getElementById("search-box-input") as HTMLInputElement).value = "";
-                           }}>←</button>
-                }
-                {
-                    SearchBox((newSearch) => {
-                        setSearch(newSearch);
-                        if (appState === "current") setAppState("browse");
-                    })
-                }
-            </div>
-
-            {/* Display the current sections */}
-            <div hidden={appState !== "current"}>
-                {PreferencesMenu(update)}
-                { CurrentSections(courseOrder, setCourseOrderAndUpdate, sectionData) }
-            </div>
-
-            {/* Display searched for sections */}
-            <div hidden={appState !== "browse"}>
-                <div>{ SearchCourses(search, allCourses, sectionData) }</div>
-            </div>
-        </div>,
-        ScheduleLayout(sectionResults),
+    const leftColumnHeader = (
+        <div className="left-column-header">
+            {(appState === "current") ? null
+             : <button className="exit-button"
+                       onClick={() => {
+                           setAppState("current");
+                           // Clear the search box
+                           (document.getElementById("search-box-input") as HTMLInputElement).value = "";
+                       }}>←</button>
+            }
+            {
+                SearchBox((newSearch) => {
+                    setSearch(newSearch);
+                    if (appState === "current") setAppState("browse");
+                })
+            }
+        </div>
     );
+
+    return <TwoColumns left={ [
+                           leftColumnHeader,
+                           <div hidden={appState !=="current"}>
+                               <PreferencesMenu update={updateSchedule} />
+                               <CurrentSections order={courseOrder} setOrder={setCourseOrderAndUpdate}
+                                                mySections={sectionData} />
+                           </div>,
+                           appState !== "browse" ? null : (
+                               <SearchCourses search={search}
+                                              allCourses={allCourses}
+                                              mySections={sectionData} />
+                           )
+                       ] }
+                       right={ <ScheduleLayout sections={ sectionResults } /> } />
 };
 
 export default App;

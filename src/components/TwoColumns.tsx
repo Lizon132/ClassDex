@@ -1,7 +1,7 @@
 import { ReactNode, useState } from "react";
 import Draggable from "react-draggable";
 
-const TwoColumns = (left: ReactNode, right: ReactNode) => {
+const TwoColumns = (ps: { left: ReactNode, right: ReactNode }) => {
     const defaultWidth = 600;
 
     const handleDrag = (e: DragEvent) => {
@@ -15,8 +15,8 @@ const TwoColumns = (left: ReactNode, right: ReactNode) => {
     return (
         <div>
             <div className="draggable-columns">
-                <div className="left-column" style={{ width: `${defaultWidth}px` }}>{left}</div>
-                <div className="right-column">{right}</div>
+                <div className="left-column" style={{ width: `${defaultWidth}px` }}>{ ps.left }</div>
+                <div className="right-column">{ ps.right }</div>
             </div>
             <Draggable axis="x" onDrag={handleDrag} bounds={{ left: 200 - defaultWidth }}>
                 <div className="separator" />
