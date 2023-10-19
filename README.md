@@ -1,8 +1,11 @@
 # ClassDex
+By Adam, Chris, Michelg, and Valerie
+
 
 Course scheduling can be difficult, especially when you're trying to schedule a large number of courses with lots of possible time slots.
 
 Our solution is to make a course scheduler which lets you choose your courses, preferences, and priorities, and then uses a linear-algebra based algorithm to generate the optimal schedule to streamline your semester.
+
 
 
 ## Technologies
@@ -33,4 +36,3 @@ In this view, the user can add and remove courses, reorder courses based on prio
 ### Viewing your Results
 
 The right side of the UI is a calendar view which displays your entire schedule on a single page, dynamically changing size if you have any unusually early or late classes.
-
