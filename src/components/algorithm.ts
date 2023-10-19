@@ -34,23 +34,27 @@ function overlapBetweenSessionTimes(lhs: CourseSection, rhs: CourseSection): boo
 export async function computeOptimalSessionScheduling(
     for_sessions: SessionWithMetadata[], minimum_credits: number, maximum_credits: number,
 ): Promise<SessionWithMetadata[]> {
-    try {
-        const response = await fetch('http://localhost:3001/computeOptimalScheduling', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ for_sessions, minimum_credits, maximum_credits }),
-        });
+    return for_sessions.reduce((existing, s1) => (
+        existing.find(s2 => overlapBetweenSessionTimes(s1.session, s2.session))
+            ? existing : [...existing, s1]
+    ), [] as SessionWithMetadata[])
+    // try {
+    //     const response = await fetch('http://localhost:3001/computeOptimalScheduling', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify({ for_sessions, minimum_credits, maximum_credits }),
+    //     });
 
-        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+    //     if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
-        const result = await response.json();
-        return result;
-    } catch (error) {
-        console.error('Error during the computation:', error);
-        throw error;
-    }
+    //     const result = await response.json();
+    //     return result;
+    // } catch (error) {
+    //     console.error('Error during the computation:', error);
+    //     throw error;
+    // }
 }
 
 

@@ -21,7 +21,13 @@ export const worldImage = require("./icons/world.jpg") as any;
 export const aImage = require("./icons/a.jpg") as any;
 
 
-type AppState = "current" | "browse";
+type AppState = "current" | "browse" | "saved";
+
+type SavedSchedule = {
+    sections: Section[],
+    time: Date,
+    name?: string,
+};
 
 export const allCourses = (COURSES as any as Course[]);
 // Remove sections that don't have a time
@@ -77,6 +83,8 @@ const App = () => {
     const [search, setSearch] = useState("");
     // The schedule results from the algorithm
     const [sectionResults, setSectionResults] = useState([] as Section[]);
+    // List of saved schedules
+    const [savedSchedules, setSavedSchedules] = useState([] as SavedSchedule[]);
 
 
     const updateSchedule = (sections: Section[] = mySections) => {
@@ -97,12 +105,12 @@ const App = () => {
         console.log("Setting", sections)
         setMySections(sections);
         updateSchedule(sections);
-    }
+    };
 
     const setCourseOrderAndUpdate = (order: CourseOrder) => {
         setCourseOrder(order);
         updateSchedule();
-    }
+    };
 
 
     // Create an object that allows child components to modify the user's selected sections
@@ -129,39 +137,87 @@ const App = () => {
         },
     }
 
+    const courseSearchBox = SearchBox((newSearch) => {
+        setSearch(newSearch);
+        if (appState === "current") setAppState("browse");
+    })
+
     const leftColumnHeader = (
-        <div className="left-column-header">
-            {(appState === "current") ? null
-             : <button className="exit-button"
-                       onClick={() => {
-                           setAppState("current");
-                           // Clear the search box
-                           (document.getElementById("search-box-input") as HTMLInputElement).value = "";
-                       }}>←</button>
-            }
-            {
-                SearchBox((newSearch) => {
-                    setSearch(newSearch);
-                    if (appState === "current") setAppState("browse");
-                })
-            }
-        </div>
+        <div className="left-column-header">{
+            appState === "current" ? (
+                <>
+                    { courseSearchBox }
+                    <button className="saved-schedules-button"
+                            onClick={ () => setAppState("saved") }>
+                        Saved Schedules
+                    </button>
+                </>
+
+            ) : appState === "browse" ? (
+                <>
+                    {courseSearchBox}
+                    <button className="exit-button"
+                            onClick={() => {
+                                setAppState("current");
+                                // Clear the search box
+                                (document.getElementById("search-box-input") as HTMLInputElement).value = "";
+                            }}>
+                        ←
+                    </button>
+                </>
+
+            ) : appState === "saved" ? (
+                <div>
+                    <button className="exit-button" onClick={() => {setAppState("current");}}>←</button>
+                    {
+                        savedSchedules.map((saved, idx) => (
+                            <div className="saved-schedule-list-item">
+                                <button onClick={ () => setSavedSchedules(savedSchedules.filter((_, i) => i !== idx)) }>
+                                    x
+                                </button>
+                                <button onClick={ () => setSectionResults(saved.sections) }>
+                                    <div>{ saved.name ?? "Unnamed" }</div>
+                                    <div>{ saved.time.toLocaleString() }</div>
+                                </button>
+                            </div>
+                        ))
+                    }
+                </div>
+            ) : (<></>)
+        }</div>
     );
 
-    return <TwoColumns left={ [
-                           leftColumnHeader,
-                           <div hidden={appState !=="current"}>
-                               <PreferencesMenu update={updateSchedule} />
-                               <CurrentSections order={courseOrder} setOrder={setCourseOrderAndUpdate}
-                                                mySections={sectionData} />
-                           </div>,
-                           appState !== "browse" ? null : (
-                               <SearchCourses search={search}
-                                              allCourses={allCourses}
-                                              mySections={sectionData} />
-                           )
-                       ] }
-                       right={ <ScheduleLayout sections={ sectionResults } /> } />
+    return (
+        <>
+            <button hidden={ sectionResults.length === 0 }
+                    onClick={ () => {
+                        const newSchedule: SavedSchedule = {
+                            time: new Date(),
+                            sections: sectionResults,
+                        };
+                        setSavedSchedules([newSchedule, ...savedSchedules]);
+                    }}
+            >
+                Star
+            </button>
+            <TwoColumns
+                left={ [
+                    leftColumnHeader,
+                    <div hidden={appState !=="current"}>
+                        <PreferencesMenu update={updateSchedule} />
+                        <CurrentSections order={courseOrder} setOrder={setCourseOrderAndUpdate}
+                                         mySections={sectionData} />
+                    </div>,
+                    appState !== "browse" ? null : (
+                        <SearchCourses search={search}
+                                       allCourses={allCourses}
+                                       mySections={sectionData} />
+                    )
+                ] }
+                right={ <ScheduleLayout sections={ sectionResults } /> }
+            />
+        </>
+    );
 };
 
 export default App;

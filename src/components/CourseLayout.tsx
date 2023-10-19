@@ -18,11 +18,22 @@ const CourseLayout = (ps: {
 
     const numSectionsAdded = ps.course.fullSections.filter(s => ps.mySections.sections.includes(s)).length;
 
+    console.log(ps.course.id, expanded);
+
     // console.log("Course = ", ps.course.id);
     const elementId = "course-body-" + ps.course.id.split(" ").join("-");
     useEffect(() => {
-        const elem = document.getElementById(elementId);
-        elem.style.maxHeight = expanded ? `${elem.scrollHeight}px` : "0px";
+        if (expanded) {
+            // React sometimes is glitchy and keeps old versions of the
+            // elements hidden, so then getElementById selects the
+            // previous, hidden element
+            const elems = document.querySelectorAll("#" + elementId);
+            for (let elem of Array.from(elems)) {
+                if (elem instanceof HTMLElement) {
+                    elem.style.maxHeight = expanded ? `${elem.scrollHeight}px` : "0px";
+                }
+            }
+        }
     }, [expanded]);
 
     return (
@@ -64,11 +75,13 @@ const CourseLayout = (ps: {
             </div>
 
             {/* Everything below will be hidden when the course is folded */}
-            <div className="course-body" id={elementId} > {
+            <div className="course-body" id={elementId}
+                 style={{ maxHeight: expanded ? `50px` : "0px" }}
+            > {
                 expanded === null ? null : <CourseBodyLayout course={ps.course} mySections={ps.mySections} />
             } </div>
         </div>
-    );
+);
 }
 
 export default CourseLayout;

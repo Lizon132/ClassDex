@@ -21,7 +21,9 @@ const matchesSearch = (search: string, course: Course): boolean => {
 const SearchCourses = (ps: { search: string, allCourses: Course[], mySections: CurrentSectionData }) => {
     const filteredCourses = ps.allCourses
           .filter(course => matchesSearch(ps.search, course))
-          .map(course => <CourseLayout course={course} mySections={ps.mySections} />);
+          .map(course => <CourseLayout key={course.id}
+                                       course={course}
+                                       mySections={ps.mySections} />);
 
     // Even courses which don't match must be returned (just hidden) since they contain state
     return (

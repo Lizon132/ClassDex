@@ -27,7 +27,9 @@ const CourseBodyLayout = (ps: {
         </table>
         {
             ps.course.fullSections.map((section) => (
-                <CourseSectionLayout section={section} mySections={ps.mySections} />
+                <CourseSectionLayout key={section.section.crn}
+                                     section={section}
+                                     mySections={ps.mySections} />
             ))
         }
     </div>

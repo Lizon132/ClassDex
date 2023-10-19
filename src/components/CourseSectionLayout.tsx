@@ -33,8 +33,8 @@ const CourseSectionLayout = (ps: { section: Section, mySections: CurrentSectionD
         <div className={ sectionIsAdded ? "course-section course-section-added" : "course-section" }>
             <div className="course-section-info">
                 <div className="course-info-body">CRN: { ps.section.section.crn }</div>
-                { ranges.map(({ start, end, days }) => (
-                    <div className="course-section-time">
+                { ranges.map(({ start, end, days }, i) => (
+                    <div key={i} className="course-section-time">
                         {
                             [6,0,1,2,3,4,5].map(day => {
                                 const dayClass = days.includes(day) ? "weekday weekday-active" : "weekday";
@@ -47,12 +47,12 @@ const CourseSectionLayout = (ps: { section: Section, mySections: CurrentSectionD
                 <div>
                     <span className="course-info-header">Instructor:</span>
                     <span className="course-info-body">{ ps.section.section.instructor }</span>
-                    { ps.section.section.instructorRating && (
+                    { ps.section.section.instructorRating ? (
                         <div className="rmp">
                             Rate My Professor Rating = 
                             <div className="rmp-rating">{ ps.section.section.instructorRating }</div>
                         </div>
-                    ) }
+                    ) : null }
                 </div>
             </div>
             { sectionIsAdded ? (
