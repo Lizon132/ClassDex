@@ -1,0 +1,573 @@
+body {
+    overflow: hidden;
+    height: 98vh;
+}
+
+/* Make buttons circular */
+button {
+    border-radius: 50px;
+    padding: 3px;
+    background-color: transparent;
+    border: thin solid darkgray;
+    margin: 0px 5px;
+    cursor: pointer;
+
+    min-width: 25px;
+    min-height: 25px;
+}
+
+.course-remove-all-button, .remove-button {
+    font-weight: bold;
+    color: #a00;
+}
+
+.course-add-all-button, .add-button {
+    font-weight: bold;
+    color: #070;
+}
+
+
+
+
+/* Put scrollbar on left */
+.left-column {
+  height: 100px;
+  overflow: auto;
+  direction: rtl;
+  padding-left: 10px;
+}
+
+.left-column>div {
+  direction: ltr;
+}
+
+
+/* The floating element being dragged around */
+.dragging-item {
+    cursor: grab;
+
+    pointer-events: none;
+
+    position: absolute;
+    width: 100%;
+    transform: translateY(-75%);
+}
+
+/* The item in place of the floating element in the list */
+.filler-item {
+    color: transparent;
+    background-color: lightgray;
+    cursor: grab;
+    width: 90%;
+}
+
+.grabber {
+    touch-action: none;
+    cursor: grab;
+    margin: auto 5px;
+}
+
+
+
+/* Column layout */
+.draggable-columns {
+    display: flex;
+    position: relative;
+    height: 98vh;
+}
+
+.left-column {
+    overflow: scroll;
+    height: 100%;
+    background-color: white;
+}
+
+.right-column {
+    overflow: hidden;
+    margin-left: 5px;
+    padding-right: 2px;
+    flex: 1;
+}
+
+.separator {
+    position: absolute;
+    left: 600px;
+    top: 0px;
+    width: 6px;
+    height: 100%;
+    border-right: solid 1px #ccc;
+    cursor: col-resize;
+
+    translate: 15px;
+}
+
+
+/* Formatting for the left column */
+
+.left-column-header {
+    display: flex;
+}
+
+#search-box-input {
+    /* cursor: pointer; */
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 25px;
+    border: thin solid darkgray;
+    font-size: medium;
+    width: 100%;
+}
+
+.courses-heading, .preferences-heading {
+    font-size: large;
+    font-weight: 300;
+    margin-top: 15px;
+    margin-bottom: 3px;
+}
+
+.warning-label {
+    color: #888;
+    font-size: small;
+    font-weight: 400;
+    margin-left: 15px;
+}
+
+
+/* Formatting courses */
+
+.course {
+    background-color: white;
+    padding: 10px;
+    margin: 10px 0px;
+    border-radius: 8px;
+    border: thin solid lightgray;
+    width: 80%;
+    overflow-x: scroll;
+}
+
+.course-name {
+    margin: 0px 8px;
+}
+
+.course-title, .course-number-added {
+    font-family: monospace;
+    font-size: medium;
+    color: slategray;
+    white-space: nowrap;
+}
+
+.course-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.course-header-left, .course-header-right {
+    display: flex;
+    align-items: center;
+    margin: 0px 3px;
+}
+
+.course-body {
+    overflow: hidden;
+    padding-top: 10px;
+
+    height: fit-content;
+    max-height: 0px;
+    transition: max-height 0.8s ease;
+}
+
+.course-section {
+    padding: 10px;
+    border: thin solid lightgray;
+    border-radius: 8px;
+    margin: 5px 0px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.course-section-added {
+    background-color: #eef4ff;
+}
+
+.rmp {
+    margin-top: 4px;
+    margin-left: 15px;
+    font-size: 0.85em;
+}
+
+.rmp-rating {
+    margin-left: 6px;
+    font-size: 1.4em;
+    font-weight: 300;
+    display: inline;
+}
+
+
+.course-info-header {
+    margin-top: 20px;
+    font-size: 1.0em;
+    margin-right: 10px;
+    /* font-weight: 300; */
+}
+
+.course-info-body {
+    font-size: 0.85em;
+    font-weight: 350;
+}
+
+.course-info-table {
+    width: 100%;
+    margin-top: 14px;
+}
+
+td {
+    padding-bottom: 12px;
+}
+
+.course-info-icon {
+    width: 17px;
+    height: 17px;
+    margin-right: 7px;
+    translate: 0px 3px;
+}
+
+.weekday {
+    border: 2px solid #246;
+    border-radius: 6px;
+    padding: 3px;
+
+    width: 20px;
+    height: 20px;
+
+    font-weight: bold;
+    text-align: center;
+}
+
+.weekday-active {
+    background-color: #246;
+    color: white;
+}
+
+
+.course-section-time {
+    display: flex;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.time-range {
+    font-size: 1.0em;
+    /* font-weight: bold; */
+    margin-left: 15px;
+    margin-top: 5px;
+}
+
+
+
+/* Formatting preferences */
+.preferences-heading {
+    cursor: pointer;
+}
+
+.preferences-fold-indicator {
+    display: inline;
+    position: absolute;
+    transform: translate(5px, -5px);
+    font-weight: 100;
+}
+
+#preferences-checkbox {
+    display: none;
+}
+
+#preferences-checkbox:checked + #preferences-container {
+    height: 100px;
+}
+
+#preferences-container {
+    margin-left: 10px;
+    height: 0px;
+    overflow: hidden;
+    transition: height .4s ease;
+}
+
+.preference {
+    color: #444;
+    font-size: 0.9em;
+    margin: 5px;
+}
+
+.preference input {
+    width: 20px;
+    margin-left: 10px;
+}
+
+.preference select {
+    margin-left: 10px;
+    background-color: transparent;
+    border: gray solid 1px;
+    font-weight: 400;
+}
+
+
+
+/* Calendar */
+:root {
+    --grid: #ddd;
+}
+
+.calendar {
+    display: flex;
+    height: 100%;
+}
+
+.calendar-spacer, .calendar-event, .calendar-time {
+    margin: 0px;
+}
+
+.calendar-day-label {
+    font-family: monospace;
+    color: #444;
+    font-size: 18px;
+}
+
+
+.calendar-event {
+    width: 100%;
+}
+
+.calendar-event div {
+    padding: 1px;
+    height: calc(100% - 10px);
+    width: calc(100% - 10px);
+
+    font-size: small;
+
+    overflow: hidden;
+
+    padding: 3px;
+    margin: 2px;
+    border-radius: 5px;
+    border: 1px solid #556;
+    background-color: #eef4ff;
+}
+
+
+.calendar-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    border-left: 1px solid var(--grid);
+}
+
+.calendar-time-column {
+    padding: 0px 5px 0px 10px;
+}
+
+.calendar-time {
+    position: relative;
+    /* translate: 0 30px; */
+}
+
+.calendar-time div {
+    font-family: monospace;
+    color: gray;
+    font-size: 14px;
+    /* translate: 0 10px; */
+}
+
+#calendar-time-0::before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100vw;
+    background-color: var(--grid);
+    z-index: -1;
+    left: -10px
+}
+#calendar-time-1::before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100vw;
+    background-color: var(--grid);
+    z-index: -1;
+    left: -10px
+}
+#calendar-time-2::before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100vw;
+    background-color: var(--grid);
+    z-index: -1;
+    left: -10px
+}
+#calendar-time-3::before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100vw;
+    background-color: var(--grid);
+    z-index: -1;
+    left: -10px
+}
+#calendar-time-4::before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100vw;
+    background-color: var(--grid);
+    z-index: -1;
+    left: -10px
+}
+#calendar-time-5::before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100vw;
+    background-color: var(--grid);
+    z-index: -1;
+    left: -10px
+}
+#calendar-time-6::before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100vw;
+    background-color: var(--grid);
+    z-index: -1;
+    left: -10px
+}
+#calendar-time-7::before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100vw;
+    background-color: var(--grid);
+    z-index: -1;
+    left: -10px
+}
+#calendar-time-8::before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100vw;
+    background-color: var(--grid);
+    z-index: -1;
+    left: -10px
+}
+#calendar-time-9::before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100vw;
+    background-color: var(--grid);
+    z-index: -1;
+    left: -10px
+}
+#calendar-time-10::before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100vw;
+    background-color: var(--grid);
+    z-index: -1;
+    left: -10px
+}
+#calendar-time-11::before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100vw;
+    background-color: var(--grid);
+    z-index: -1;
+    left: -10px
+}
+#calendar-time-12::before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100vw;
+    background-color: var(--grid);
+    z-index: -1;
+    left: -10px
+}
+#calendar-time-13::before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100vw;
+    background-color: var(--grid);
+    z-index: -1;
+    left: -10px
+}
+#calendar-time-14::before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100vw;
+    background-color: var(--grid);
+    z-index: -1;
+    left: -10px
+}
+#calendar-time-15::before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100vw;
+    background-color: var(--grid);
+    z-index: -1;
+    left: -10px
+}
+#calendar-time-16::before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100vw;
+    background-color: var(--grid);
+    z-index: -1;
+    left: -10px
+}
+#calendar-time-17::before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100vw;
+    background-color: var(--grid);
+    z-index: -1;
+    left: -10px
+}
+#calendar-time-18::before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100vw;
+    background-color: var(--grid);
+    z-index: -1;
+    left: -10px
+}
+#calendar-time-19::before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100vw;
+    background-color: var(--grid);
+    z-index: -1;
+    left: -10px
+}
+#calendar-time-20::before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100vw;
+    background-color: var(--grid);
+    z-index: -1;
+    left: -10px
+}
+

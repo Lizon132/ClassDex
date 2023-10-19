@@ -1,27 +1,38 @@
 # ClassDex
 By Adam, Chris, Michelg, and Valerie
 
-# DESCRIPTION
-ClassDex is a automation applicaiton to make picking classes easier and more efficient. In this applicaiton students pick classes based upon weighted criteria picked by the user. 
-Students select a set of classes that are identified as required or optional. They are then placed in ranked order from most preferred to least prefered. 
-This data is then passed through an algorithm which then returns a rudimentary class schedule.
 
-# TECHNOLOGIES USED
-Node.JS
-Matlab
-Typescript
-Json
-Swift
-HTML/CSS
-Jira
-Github
+Course scheduling can be difficult, especially when you're trying to schedule a large number of courses with lots of possible time slots.
 
-# Main Repo
+Our solution is to make a course scheduler which lets you choose your courses, preferences, and priorities, and then uses a linear-algebra based algorithm to generate the optimal schedule to streamline your semester.
 
-The main repo contains most of the front end work done on the project. HTML, CSS, and images. These templates were then implated with typescript to interface with our data.
 
-# CHALLENGES
 
-Getting the Data
+## Technologies
 
-Getting the initial data set was one of the earliest problems with this project. We built a script that would scrape the data from the Rice University website that would return a list of all classes, their class codes, professor, dates and times, and course description. 
+Our Frontend was made using Typescript, ReactJS, and Bootstrap.
+The Algorithm was created using a combination of Python and Matlab.
+We also used Jira and Github for project management throughout the course of the project.
+
+
+## The Algorithm
+
+Our algorithm works by recontextualizing the problem of course scheduling into a linear-algebra problem.
+By weighting each class section according to your preferences, such as the time of day, proximity to other classes, and how highly you ranked it in your course deck, ClassDex is able to find the list of courses which maximizes your preferences, while still staying within the credit-hour range that /you/ specify.
+
+
+## The Frontend
+
+Our frontend is centered around a React App, which allows it to perform almost everything you need with minimal communication between you and the server. The app only need to access the server when running the algorithm, making the user experience seamless at all times.
+
+
+### Selecting Classes
+
+The UI is split into two sections. On the left side, the user can browse and select from every course offered at Rice. Each course displays a myriad of information, including the description, available sections, days of the week, and instructors for each session. For instructors with a Rate My Professor page, we even use the Rate My Professor API to fetch and display their rating right on the course page.
+
+In this view, the user can add and remove courses, reorder courses based on priority, and even select which sections of a course they might want to avoid. You can also customize preferences, such as your desired time of day, or a minimum and maximum number of credit hours, which will tweak the inputs of the algorithm to provide a better schedule for your needs.
+
+
+### Viewing your Results
+
+The right side of the UI is a calendar view which displays your entire schedule on a single page, dynamically changing size if you have any unusually early or late classes.
