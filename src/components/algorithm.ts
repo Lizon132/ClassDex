@@ -62,7 +62,6 @@ export async function callAlgorithmAndUpdate(
     sections: Section[], numRequired: number, prefs: CoursePreferences,
     update: (s: Section[]) => void,
 ) {
-    console.log(prefs, sections);
     const withMetadata = sections.map(s => ({
         session: s.section,
         weight: 1,
@@ -84,8 +83,6 @@ export async function callAlgorithmAndUpdate(
     for (let i = 0; i < numRequired; i++) {
         withMetadata[i].weight += 20;
     }
-
-    console.log(withMetadata);
 
     // const scheduleWithMetadata = withMetadata;
     const scheduleWithMetadata = await computeOptimalSessionScheduling(

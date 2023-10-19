@@ -3,7 +3,6 @@ const SearchBox = (setSearchTerm: (s: string) => void) => {
         <form
             id="search-box-form"
             onSubmit={(e) => {
-                {/* console.log("Submitting!", e.currentTarget.value); */} 
                 e.preventDefault(); // <-- prevent the default form action
                 setSearchTerm((document.getElementById("search-box-input") as HTMLInputElement).value);
             }}

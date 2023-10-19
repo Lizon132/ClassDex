@@ -18,8 +18,6 @@ const CourseLayout = (ps: {
 
     const numSectionsAdded = ps.course.fullSections.filter(s => ps.mySections.sections.includes(s)).length;
 
-    console.log(ps.course.id, expanded);
-
     // console.log("Course = ", ps.course.id);
     const elementId = "course-body-" + ps.course.id.split(" ").join("-");
     useEffect(() => {

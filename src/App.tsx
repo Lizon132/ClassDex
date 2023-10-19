@@ -222,7 +222,7 @@ const App = () => {
                     { savedSchedules.length === 0 ? "No saved schedules!" : "Saved Schedules:" }
                     {
                         savedSchedules.map((saved, idx) => (
-                            <div className="saved-schedule-list-item">
+                            <div key={idx} className="saved-schedule-list-item">
                                 <button onClick={ () => setSavedSchedules(savedSchedules.filter((_, i) => i !== idx)) }>
                                     x
                                 </button>
