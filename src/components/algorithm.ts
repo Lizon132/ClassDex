@@ -17,7 +17,7 @@ export function overlapBetweenSessionTime(lhs: CourseTimeRange, rhs: CourseTimeR
 }
 
 function overlapBetweenSessionTimes(lhs: CourseSection, rhs: CourseSection): boolean {
-    if (lhs.timeRanges == undefined || rhs.timeRanges == undefined) {
+    if (lhs.timeRanges === undefined || rhs.timeRanges === undefined) {
         return false
     }
     for (let i = 0; i < lhs.timeRanges.length; i += 1) {

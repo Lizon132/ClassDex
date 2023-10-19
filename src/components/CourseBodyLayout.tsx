@@ -15,14 +15,22 @@ const CourseBodyLayout = (ps: {
         {/* </div> */}
         <table className="course-info-table">
             <tr>
-                <td><img className="course-info-icon" src={clockImage}/>
+                <td><img alt="Clock"
+                         className="course-info-icon"
+                         src={clockImage}/>
                     { ps.course.creditHours ?? "?" } Credit Hours
                 </td>
-                <td><img className="course-info-icon" src={personImage}/>{ ps.course.courseType }</td>
+                <td><img alt="Person"
+                         className="course-info-icon"
+                         src={personImage}/>{ ps.course.courseType }</td>
             </tr>
             <tr>
-                <td><img className="course-info-icon" src={worldImage}/> ENG</td>
-                <td><img className="course-info-icon" src={aImage}/> Letter Grading</td>
+                <td><img alt="World"
+                         className="course-info-icon"
+                         src={worldImage}/> ENG</td>
+                <td><img alt="A"
+                         className="course-info-icon"
+                         src={aImage}/> Letter Grading</td>
             </tr>
         </table>
         {

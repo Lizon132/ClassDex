@@ -34,7 +34,7 @@ const CourseLayout = (ps: {
                 }
             }
         }
-    }, [expanded]);
+    }, [expanded, elementId]);
 
     return (
         <div className="course">

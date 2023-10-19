@@ -1,7 +1,7 @@
 import CurrentSections from './components/CurrentSections';
 import TwoColumns from './components/TwoColumns';
 import { Course, Section } from './types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import SearchCourses from './components/SearchCourses';
 import COURSES from "./courses";
 import SearchBox from './components/SearchBox';
@@ -24,8 +24,8 @@ export const aImage = require("./icons/a.jpg") as any;
 type AppState = "current" | "browse" | "saved";
 
 type SavedSchedule = {
-    sections: Section[],
-    time: Date,
+    sections: string[],
+    time: string,
     name?: string,
 };
 
@@ -36,11 +36,13 @@ for (let c of allCourses) {
 }
 
 // Add full section objects to each course
+const allSections: Section[] = []
 for (let course of allCourses) {
     course.fullSections = [];
     course.sections.forEach(section => {
         const fullSection = { course, section };
         course.fullSections.push(fullSection);
+        allSections.push(fullSection);
         return fullSection;
     });
 }
@@ -72,21 +74,70 @@ function requiredSectionCount(order: CourseOrder): number {
 }
 
 
+// Parse local storage
+const localCourseOrderString = localStorage.getItem("courseOrder");
+var initialCourseOrder: CourseOrder = ["Optional"];
+if (localCourseOrderString) {
+    initialCourseOrder = (JSON.parse(localCourseOrderString) as string[]).map(str => {
+        if (str === "Optional") return str;
+        return allCourses.find(course => course.id === str);
+    });
+}
+
+const localSectionsString = localStorage.getItem("sections");
+var initialSections: Section[] = [];
+if (localSectionsString) {
+    initialSections = (JSON.parse(localSectionsString) as string[]).map(crn => {
+        return allSections.find(section => section.section.crn === crn);
+    });
+}
+
+const localSavedSchedulesString = localStorage.getItem("savedSchedules");
+var initialSavedSchedules: SavedSchedule[] = [];
+if (localSavedSchedulesString) {
+    initialSavedSchedules = JSON.parse(localSavedSchedulesString) as SavedSchedule[];
+}
+
+
+
+
 const App = () => {
     // The current tab of the left side bar
     const [appState, setAppState] = useState("current" as AppState);
     // Which sections you have selected
-    const [mySections, setMySections] = useState([] as Section[]);
+    const [mySections, setMySections] = useState(initialSections);
     // The priority of your courses
-    const [courseOrder, setCourseOrder] = useState(["Optional"] as CourseOrder);
+    const [courseOrder, setCourseOrder] = useState(initialCourseOrder);
     // The current search term
     const [search, setSearch] = useState("");
     // The schedule results from the algorithm
     const [sectionResults, setSectionResults] = useState([] as Section[]);
     // List of saved schedules
-    const [savedSchedules, setSavedSchedules] = useState([] as SavedSchedule[]);
+    const [savedSchedules, setSavedSchedules] = useState(initialSavedSchedules);
 
 
+    useEffect(() => {
+        localStorage.setItem("savedSchedules", JSON.stringify(savedSchedules));
+    }, [savedSchedules])
+
+    useEffect(() => {
+        localStorage.setItem("sections", JSON.stringify(mySections.map(s => s.section.crn)));
+    }, [mySections])
+
+    useEffect(() => {
+        const selectedCourses = courseOrder.flatMap(course => {
+            if (course === "Optional") return [course];
+            if (course.fullSections.find(sec => mySections.includes(sec))) {
+                return [course.id];
+            } else {
+                return [];
+            }
+        });
+        localStorage.setItem("courseOrder", JSON.stringify(selectedCourses));
+    }, [mySections])
+
+
+    // Define a hook to modify the schedule and update the algorithm output
     const updateSchedule = (sections: Section[] = mySections) => {
         setTimeout(
             () => {
@@ -99,10 +150,9 @@ const App = () => {
             },
             100,
         );
-    }
+    };
 
     const setMySectionsAndUpdate = (sections: Section[]) => {
-        console.log("Setting", sections)
         setMySections(sections);
         updateSchedule(sections);
     };
@@ -169,13 +219,16 @@ const App = () => {
             ) : appState === "saved" ? (
                 <div>
                     <button className="exit-button" onClick={() => {setAppState("current");}}>←</button>
+                    { savedSchedules.length === 0 ? "No saved schedules!" : "Saved Schedules:" }
                     {
                         savedSchedules.map((saved, idx) => (
                             <div className="saved-schedule-list-item">
                                 <button onClick={ () => setSavedSchedules(savedSchedules.filter((_, i) => i !== idx)) }>
                                     x
                                 </button>
-                                <button onClick={ () => setSectionResults(saved.sections) }>
+                                <button onClick={ () => setSectionResults(
+                                            allSections.filter(full => saved.sections.includes(full.section.crn))
+                                        ) }>
                                     <div>{ saved.name ?? "Unnamed" }</div>
                                     <div>{ saved.time.toLocaleString() }</div>
                                 </button>
@@ -192,8 +245,8 @@ const App = () => {
             <button hidden={ sectionResults.length === 0 }
                     onClick={ () => {
                         const newSchedule: SavedSchedule = {
-                            time: new Date(),
-                            sections: sectionResults,
+                            time: new Date().toLocaleString(),
+                            sections: sectionResults.map(section => section.section.crn),
                         };
                         setSavedSchedules([newSchedule, ...savedSchedules]);
                     }}

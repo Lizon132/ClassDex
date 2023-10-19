@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { CourseOrder, CurrentSectionData } from '../App';
 import CourseLayout from './CourseLayout';
 import * as DragAndDrop from "./DragAndDrop";
